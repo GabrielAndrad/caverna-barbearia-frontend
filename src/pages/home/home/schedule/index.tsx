@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './index.scss'
-import img from '../../assets/logo.png'
-import returnImage from '../../assets/icons/return.svg'
+import img from '../../../../assets/logo.png'
+import returnImage from '../../../../assets/icons/return.svg'
 import CalendarDate from './calendar/indext'
 import { plug } from 'luffie'
-import { getHours, ScheduleStore, setLoading } from '../../store/schedule-store'
+import {  ScheduleStore, setLoading } from '../../../../store/schedule-store'
 import { map } from 'rxjs/operators'
 import { combineLatest } from 'rxjs';
 import moment from 'moment'
-import LoadingSpinner from '../../components/Spinner'
-import { setShowSchedule } from '../../store/home-store'
-import { saveScheduleApi } from '../../services/schedule-service'
-// import 'react-toastify/dist/ReactToastify.css';
+import LoadingSpinner from '../../../../components/Spinner'
+import { setShowSchedule } from '../../../../store/home-store'
+import { saveScheduleApi } from '../../../../services/schedule-service'
+import '../../../../../node_modules/react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
 
@@ -143,8 +143,8 @@ const Schedule:React.FunctionComponent<IProps> = ({
     },err => {
       setLoading(false)
       console.log(err)
-      toast.error('Falha ao cadastrar agendamento', {
-        position: "bottom-right",
+      toast.error('Falha ao salvar agendamento, ' + err.data, {
+        position: "top-right",
         autoClose: 8000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -312,7 +312,6 @@ const Schedule:React.FunctionComponent<IProps> = ({
               onChange = {(event:any) => handleUser('name',event.target.value)} 
               type="text" 
               className="input-text" 
-              data-inputMask = ""
               placeholder="Digite seu nome"/>
           </div>
           <div className="line-button" style={{height:'5vh'}}>
@@ -321,7 +320,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
               type="text" 
               className="input-text" 
               placeholder="Digite seu whatsapp"/> */}
-              <InputMask mask="99999-9999" maskChar={null} className = "input-text"
+              <InputMask mask="(99)99999-9999" maskChar={null} className = "input-text"
               placeholder = "Digite seu whatsapp"
               onChange={onChange} beforeMaskedValueChange={beforeMaskedValueChange} />
           </div>

@@ -1,8 +1,5 @@
-import { saveScheduleApi } from './../services/schedule-service';
 import { createStore } from 'luffie';
 import { getHoursByDate } from '../services/schedule-service';
-import { toast } from 'react-toastify';
-import { setShowSchedule } from './home-store';
 
 const initialData = {
   hoursSelected: [],

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-import { getHours } from '../../../store/schedule-store';
+import { getHours } from '../../../../../store/schedule-store';
 import './index.scss'
 
 interface Iprops {

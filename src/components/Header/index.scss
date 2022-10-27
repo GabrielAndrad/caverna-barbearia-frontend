@@ -2,13 +2,24 @@
   background: #000;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  font-size: 1.5vw;
-  width: 100%;
+  justify-content: space-between;
+  font-size: 18px;
+  width:96%;
   height: 5vh;
   color:#fff;
-  padding-left: 2vw;
+  padding:2px 2vw;
   
+  .title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .title:hover {
+    color: orange;
+    fill: orange;
+    stroke:orange;
+  }
   span {
     font-weight: 600;
     margin-left: 1vw;
@@ -26,6 +37,11 @@
     img {
       width: 30px;
       height: 30px;
+    }
+
+    .title {
+      font-size: 12px;
+      gap:1px;
     }
   }
 

@@ -23,3 +23,7 @@ export const getHoursByDate= (date) => {
 export const saveScheduleApi = (data:ISchedule) => {
   return post(`/schedule`,data)
 }
+
+export const getSchedulesByUserApi = (user) => {
+  return get(`/schedules-by-user/${user}`)
+}
