@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import { getHours } from '../../../../../store/schedule-store';
 import './index.scss'
@@ -18,10 +18,6 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
 
   }
 
-  useEffect(() =>{
-    getHours(value)
-    selectDate(value)
-  },[])
   const dateF = new Date()
   const dateD = new Date()
   return (
