@@ -13,6 +13,7 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "axios": "^1.1.3",
+    "create-app-react": "^1.0.6",
     "luffie": "^0.3.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
