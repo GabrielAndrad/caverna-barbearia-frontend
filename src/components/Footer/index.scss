@@ -1,0 +1,32 @@
+.footer {
+  width: 100%;
+  background-color: #000;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap:10px;
+  padding-left: 20px;
+
+  img {
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+  }
+
+  img:hover {
+    width: 40px;
+    height: 40px;
+    opacity: 0.8;
+  }
+
+  .insta {
+    width:40px;
+    height: 40px;
+  }
+  .insta:hover {
+    width: 50px;
+    height: 50px;
+  }
+}
+

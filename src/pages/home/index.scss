@@ -1,0 +1,113 @@
+@font-face {
+  font-family: 'college';
+  src:url('../../fonts/Young\ Heart.ttf')
+}
+
+@font-face{
+  font-family: 'poppins';
+  src:url('../../fonts/Poppins-Black.ttf')
+}
+
+@font-face{
+  font-family: 'poppins-regular';
+  src:url('../../fonts/Poppins-Regular.ttf')
+}
+
+.background {
+  width: auto;
+  max-width: 100%;
+  min-width: 100%;
+  height: 50vh;
+  position: relative;
+  margin:0px;
+}
+
+.logo {
+  width: 25vh;
+  height: 25vh;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom:-10vh;
+  text-align: center;
+  border-radius: 50%;
+  border: 5px solid #D95023;
+}
+
+.schedule-time {
+  width: 100%;
+  height: 50vh;
+  background-color: #000;
+  color:#fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  .title {
+    font-size: 6vw;
+    font-weight: 600;
+    font-family:'college';
+  }
+
+  .sub-title {
+    font-size: 1.2vw;
+    margin-top: 2vh;
+    font-weight: 800;
+    font-family: 'poppins';
+  }
+
+  button {
+    font-family: 'poppins';
+    background-color: #d95023;
+    color:#fff;
+    border-radius: 12px;
+    width: 12vw;
+    height: 5vh;
+    margin-top: 5vh;
+    font-weight: 800;
+    font-size: 1vw;
+    border:none;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  button:hover {
+    opacity: 1;
+  }
+}
+@media screen and (max-width: 767px) {
+  .background {
+    height: 30vh;
+  }
+
+  .logo {
+    width: 40%;
+    height: 150px;
+    bottom:-60px;
+  }
+
+  .schedule-time {
+    height: 35vh;
+    justify-content: center;
+    .title {
+      margin-top: 25px;
+      font-size: 36px;
+    }
+
+    .sub-title {
+      font-size: 12px;
+    }
+    button {
+      width: 40%;
+      font-size: 13px;
+      opacity: 1;
+    }
+
+    button:hover {
+      opacity: 1;
+    }
+  }
+}
