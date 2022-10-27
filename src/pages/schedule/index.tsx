@@ -11,7 +11,7 @@ import moment from 'moment'
 import LoadingSpinner from '../../components/Spinner'
 import { setShowSchedule } from '../../store/home-store'
 import { saveScheduleApi } from '../../services/schedule-service'
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
 
