@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e6c13ad2.css",
+    "main.js": "/static/js/main.c5a6e47d.js",
+    "static/css/267.96b4fdd1.chunk.css": "/static/css/267.96b4fdd1.chunk.css",
+    "static/js/267.07aabdc7.chunk.js": "/static/js/267.07aabdc7.chunk.js",
+    "static/js/980.f29c34ba.chunk.js": "/static/js/980.f29c34ba.chunk.js",
+    "static/media/logo.png": "/static/media/logo.7a38c53ab23dd6839fe5.png",
+    "static/media/background-barbearia.jpeg": "/static/media/background-barbearia.6da94d7b517924a8d828.jpeg",
+    "static/media/Poppins-Regular.ttf": "/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
+    "static/media/Poppins-Black.ttf": "/static/media/Poppins-Black.d8b850b920a5ef49d752.ttf",
+    "static/media/Young Heart.ttf": "/static/media/Young Heart.7d77a992d272487c7488.ttf",
+    "static/media/whats.png": "/static/media/whats.760fc32b2e6211d2ed72.png",
+    "static/media/tijolo.jpeg": "/static/media/tijolo.524bcd1158ab90c01e62.jpeg",
+    "static/media/instagram.png": "/static/media/instagram.df8c6c0fca1b31c757ac.png",
+    "static/media/facebook.png": "/static/media/facebook.a5b07f7990f6b0497177.png",
+    "static/media/return.svg": "/static/media/return.9317f589311cd1c7756b80338b43cfc6.svg",
+    "index.html": "/index.html",
+    "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
+    "main.c5a6e47d.js.map": "/static/js/main.c5a6e47d.js.map",
+    "267.96b4fdd1.chunk.css.map": "/static/css/267.96b4fdd1.chunk.css.map",
+    "267.07aabdc7.chunk.js.map": "/static/js/267.07aabdc7.chunk.js.map",
+    "980.f29c34ba.chunk.js.map": "/static/js/980.f29c34ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.c5a6e47d.js"
+  ]
+}
