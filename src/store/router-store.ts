@@ -1,12 +1,8 @@
-import { createStore } from 'luffie';
+import create from 'zustand';
 
-const initialData = {
+const store = create((set) => {
 
-}
-
-const { state$} = createStore(initialData);
+});
 
 
-export {
-  state$ as RouterStore
-}
+export default store

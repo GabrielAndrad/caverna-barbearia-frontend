@@ -1,28 +1,49 @@
-import { createStore } from 'luffie';
+import create  from 'zustand';
 import { getHoursByDate } from '../services/schedule-service';
-
-const initialData = {
-  hoursSelected: [],
-  isLoading:false
+interface initialData {
+  showSchedule:boolean,
+  setLoading: (isLoading) => void,
+  getHours:(user:any) => void,
+  setShowSchedule: (show:boolean) => void,
+  hoursSelected:any[]
+  isLoading:boolean
 }
+const store = create<initialData>((set) => ({
+  showSchedule:false,
+  hoursSelected:[],
+  isLoading: false,
+  setShowSchedule:(show) => 
+    set((state) => ({
+      ...state,
+      showSchedule:show
+    })),
+  setLoading: (isLoading) => 
+    set((state) => ({
+      ...state,
+      isLoading
+    })),
+  getHours:(user) => {
+    set((state) => ({
+      ...state,
+      isLoading: true
+    }))
+    getHoursByDate(user).subscribe((response) => {
+      set((state) => ({
+        ...state,
+        hoursSelected: response,
+        isLoading: false
+      }))
+    },err => {
+      set((state) => ({
+        ...state,
+        hoursSelected: [],
+        isLoading: false
+      }))
+    })
+   
+  }
+ 
+}));
 
-const { state$,updateState} = createStore(initialData);
 
-const getHours = (date) => {
-  updateState({isLoading:true})
-  getHoursByDate(date).subscribe((response) => {
-    updateState({hoursSelected:response,isLoading:false})
-  },err => {
-    updateState({hoursSelected:[],isLoading:false})
-  })
-}
-const setLoading = (loading) => {
-  updateState({isLoading:loading})
-}
-
-
-export {
-  state$ as ScheduleStore,
-  getHours,
-  setLoading
-}
+export default store

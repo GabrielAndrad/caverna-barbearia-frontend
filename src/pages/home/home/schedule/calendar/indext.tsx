@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import { getHours } from '../../../../../store/schedule-store';
+import store from '../../../../../store/schedule-store';
 import './index.scss'
 
 interface Iprops {
@@ -9,6 +9,7 @@ interface Iprops {
 const CalendarDate:React.FunctionComponent<Iprops> =({
   selectDate
 } ) =>{
+  const {getHours} = store()
   const [value, onChange] = useState(new Date());
   
   const onChangeValue = (event) => {

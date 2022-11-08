@@ -16,7 +16,6 @@
     "create-app-react": "^1.0.6",
     "express": "^4.18.2",
     "express-favicon": "^2.0.1",
-    "luffie": "^0.3.0",
     "moment": "^2.29.4",
     "path": "^0.12.7",
     "react": "^18.2.0",
@@ -26,14 +25,16 @@
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
+    "react-tooltip": "^4.4.3",
     "rxjs": "^7.5.7",
     "rxjs-compat": "^6.6.7",
     "sass": "^1.55.0",
     "typescript": "^4.8.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.1.3"
   },
   "scripts": {
-    "start":"react-scripts --max_old_space_size=6144 start",
+    "start": "react-scripts --max_old_space_size=6144 start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -3,27 +3,19 @@ import './index.scss'
 import img from '../../../../assets/logo.png'
 import returnImage from '../../../../assets/icons/return.svg'
 import CalendarDate from './calendar/indext'
-import { plug } from 'luffie'
-import {  ScheduleStore, setLoading } from '../../../../store/schedule-store'
-import { map } from 'rxjs/operators'
-import { combineLatest } from 'rxjs';
+import storeSchedule from '../../../../store/schedule-store'
 import moment from 'moment'
 import LoadingSpinner from '../../../../components/Spinner'
-import { setShowSchedule } from '../../../../store/home-store'
+import storeHome from '../../../../store/home-store'
 import { saveScheduleApi } from '../../../../services/schedule-service'
 import '../../../../../node_modules/react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
 
-interface IProps {
-  hoursSelected,
-  isLoading
-}
-const Schedule:React.FunctionComponent<IProps> = ({
-  hoursSelected,
-  isLoading,
-  
-}) => {
+
+const Schedule:React.FunctionComponent = () => {
+  const {setShowSchedule} = storeHome()
+  const {setLoading,isLoading,hoursSelected} = storeSchedule()
   const [details,setShowDetails] = useState([])
   const [typeSelected,setTypeSelected] = useState({
     title: '',
@@ -315,11 +307,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
               placeholder="Digite seu nome"/>
           </div>
           <div className="line-button" style={{height:'5vh'}}>
-           {/* <input 
-              onKeyPress = {(event:any) => handleUser('phone',event.target.value)} 
-              type="text" 
-              className="input-text" 
-              placeholder="Digite seu whatsapp"/> */}
+          
               <InputMask mask="(99)99999-9999" maskChar={null} className = "input-text"
               placeholder = "Digite seu whatsapp"
               onChange={onChange} beforeMaskedValueChange={beforeMaskedValueChange} />
@@ -344,18 +332,4 @@ const Schedule:React.FunctionComponent<IProps> = ({
   )
 }
 
-const stream = (props: any) => {
-  
-  return combineLatest([
-    ScheduleStore,
-  ]).pipe(
-    map(([databasePlansState]) => {
-      return {
-        ...databasePlansState,
-      };
-    })
-  );
-};
-
-const ScheduleScreen = plug(stream)(Schedule);
-export default ScheduleScreen
+export default Schedule

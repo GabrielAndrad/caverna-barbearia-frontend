@@ -5,12 +5,11 @@ import '../index.scss'
 import Maps from './maps'
 import Footer from '../../../components/Footer'
 import Schedule from './schedule'
-import { setShowSchedule } from '../../../store/home-store'
+import store from '../../../store/home-store'
 
 
-const Home = ({
-  showSchedule
-}) => {
+const Home = () => {
+  const {showSchedule,setShowSchedule} = store()
   return (
     <div>
       <section className="background"> 

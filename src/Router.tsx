@@ -4,11 +4,7 @@ import React, { FC, Fragment } from 'react';
 import { Route,Routes } from 'react-router-dom';
 
 // Components
-
-import { plug } from 'luffie';
-import { map } from 'rxjs/operators';
 import Home from './pages/home'
-import { RouterStore } from './store/router-store';
 
 const InnerRouter: FC = () => (
  <>
@@ -36,15 +32,8 @@ const wrappedRoutes = () => {
   </>
 );}
 
-const stream = (props: any) => {
-  return RouterStore.pipe(
-    map(currentUser => ({
-    }))
-  )
-}
+export default InnerRouter
 
-const Router = plug(stream)(InnerRouter);
 
-export default Router;
 
 

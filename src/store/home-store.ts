@@ -1,15 +1,16 @@
-import { createStore } from 'luffie';
-
-const initialData = {
-  showSchedule:false
+import create  from 'zustand';
+interface initialData {
+  showSchedule:boolean,
+  setShowSchedule: (show:boolean) => void
 }
+const store = create<initialData>((set) => ({
+  showSchedule:false,
+  setShowSchedule: (show) => 
+    set((state) => ({
+      ...state,
+      showSchedule:show
+    })) 
+}));
 
-const { state$,updateState} = createStore(initialData);
 
-const setShowSchedule = (show) => {
-  updateState({showSchedule:show})
-}
-export {
-  state$ as HomeStore,
-  setShowSchedule
-}
+export default store
