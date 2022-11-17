@@ -11,9 +11,15 @@ import { saveScheduleApi } from '../../../../services/schedule-service'
 import '../../../../../node_modules/react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
+import store from '../../../../store/my-account-store'
+interface IProps {
+  changeMenu:(menu) => void
+}
 
 
-const Schedule:React.FunctionComponent = () => {
+const Schedule:React.FunctionComponent<IProps> = ({
+  changeMenu
+}) => {
   const {setShowSchedule} = storeHome()
   const {setLoading,isLoading,hoursSelected} = storeSchedule()
   const [details,setShowDetails] = useState([])
@@ -24,6 +30,7 @@ const Schedule:React.FunctionComponent = () => {
   const [selectDate,onChangeSelectDate] = useState()
   const [scheduleSelected,setScheduleSelected] = useState<any>({user:{name:'',phone:''}})
   const [steps,setStep] = useState('infos') 
+  const {setPhoneSelected,getSchedulesByUser} = store()
 
   const scheduleTypes = [{
     id:1,
@@ -67,7 +74,6 @@ const Schedule:React.FunctionComponent = () => {
   }
 
   const handleTypes = (item) => {
-    console.log(item.details)
     setShowDetails(item.details)
 
   }
@@ -117,11 +123,17 @@ const Schedule:React.FunctionComponent = () => {
   }
   const saveSchedule = () => {
     setLoading(true)
-    console.log(scheduleSelected)
     saveScheduleApi(scheduleSelected)
     .subscribe(response => {
       setLoading(false)
-      setTimeout(() => setShowSchedule(false),5000)
+      setTimeout(() => {
+        setShowSchedule(false)
+        setPhoneSelected(scheduleSelected.user.phone)
+        getSchedulesByUser(scheduleSelected.user.phone)
+        changeMenu('my-account')
+      },3000)
+
+
       toast.success('Agendamento cadastrado com sucesso!', {
         position: "bottom-right",
         autoClose: 5000,
@@ -219,10 +231,14 @@ const Schedule:React.FunctionComponent = () => {
          {details.length > 0?(
            details.map((item,index) => {
              return(
-             <li  key = {index} onClick={() => handleDetails(item)} className="schedule-list-item">
-               <img src={img} alt=""/>
+             <li  key = {index} onClick={() => handleDetails(item)} className="schedule-list-item" style={{justifyContent:'space-between'}}>
+              <div style={{display:'flex',alignItems:"center"}}>
+                <img src={img} alt=""/>
                <span>{item.title}</span>
-               </li>
+              </div>
+            
+               <span>{item.value}</span>
+              </li>
              )
            })
          ):(
@@ -231,6 +247,7 @@ const Schedule:React.FunctionComponent = () => {
              <li  key = {item.id} onClick={() => handleTypes(item)} className="schedule-list-item">
                <img src={img} alt=""/>
                <span>{item.name}</span>
+
                </li>
              )
            })
@@ -245,7 +262,19 @@ const Schedule:React.FunctionComponent = () => {
        { hoursSelected.map((el) => {
            return (
              <div 
-             onClick={(event) => handleSelectHours(el)}
+             onClick={(event) => {
+              !el.disabled?handleSelectHours(el):
+              toast.error('Este horário não está disponivel no momento!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                })
+             }}
              className = "list-hours-items"
              style={{
                backgroundColor:el.disabled?'#ddd':el.value === scheduleSelected?.hour?'#1087ff':'#fff',

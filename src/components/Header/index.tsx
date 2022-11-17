@@ -1,5 +1,7 @@
 import React from 'react'
 import clockImage from '../../assets/clock.png'
+import returnImage from '../../assets/icons/return.svg'
+
 import userImage from '../../assets/icons/user.svg'
 
 import './index.scss'
@@ -14,10 +16,14 @@ const Header:React.FunctionComponent<IProps> = ({
 }) => {
   return (
     <div className="header">
-      <div className='title'>
+     {menu === 'home' && <div className='title'>
         <img src={clockImage} alt="" width="20px" height="20px"/>
         <span>Aberto de Seg. a Sáb. das 8h as 19h</span>
-      </div>
+      </div>}
+      {menu === 'my-account' &&<div className='title' onClick={() => changeMenu('home')}>
+        <img src={returnImage} alt="" width="20px" height="20px"/>
+        <span>Voltar para home</span>
+      </div>}
       {menu === 'home' &&<div className='title' onClick={() => changeMenu('my-account')}>
         <img src={userImage} alt="" width="20px" height="20px"/>
         <span>Minha Conta</span>

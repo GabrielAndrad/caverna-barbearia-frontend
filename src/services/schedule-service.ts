@@ -1,4 +1,4 @@
-import { get, post } from "./api"
+import { del, get, post } from "./api"
 import moment from 'moment'
 
 export interface ISchedule{
@@ -27,3 +27,7 @@ export const saveScheduleApi = (data:ISchedule) => {
 export const getSchedulesByUserApi = (user) => {
   return get(`/schedules-by-user/${user}`)
 }
+
+export const deleteScheduleApi = (id) => {
+  return del(`/schedule/${id}`)
+} 

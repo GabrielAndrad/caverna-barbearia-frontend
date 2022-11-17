@@ -14,8 +14,14 @@ const Dashboard = ({
         setMenu(menu)
         
         }} menu={menu}/>
-      {menu === 'home' && <Home />}
-      {menu === 'my-account' && <MyAccount/>}
+      {menu === 'home' && <Home changeMenu = {(menu) => {
+        setMenu(menu)
+        
+        }}/>}
+      {menu === 'my-account' && <MyAccount changeMenu = {(menu) => {
+        setMenu(menu)
+        
+        }}/>}
     </div>
   )
 }

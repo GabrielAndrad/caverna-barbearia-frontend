@@ -7,16 +7,33 @@ import InputMask from 'react-input-mask';
 import canceled from '../../../assets/icons/cancel-icon.svg'
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
+import { ToastContainer } from 'react-toastify';
 
-const MyAccount:React.FunctionComponent = () => {
+interface IProps {
+  changeMenu:(menu) => void
+}
+const MyAccount:React.FunctionComponent<IProps> = ({
+  changeMenu
+}) => {
   const data = new Date()
   data.setDate(data.getDate()+7)
-  const {showSchedule,getSchedulesByUser,isLoading,schedules,setPhoneSelected,phoneSelected,getSchedulesFilter,reset} = store()
+  const {
+    showSchedule,
+    getSchedulesByUser,
+    isLoading,
+    schedules,
+    setPhoneSelected,
+    phoneSelected,
+    getSchedulesFilter,
+    deleteSchedule,
+    reset} = store()
   const [filter,setFilter] = useState({
     inicio:moment(new Date()).format('YYYY-MM-DD'),
     fim:moment(data).format('YYYY-MM-DD'),
     search:''
   })
+
+  const [modalConfirm,openModalConfirm] = useState('0')
   const handleUser = (event) => {
     setPhoneSelected(event.target.value)
   }
@@ -40,8 +57,6 @@ const MyAccount:React.FunctionComponent = () => {
       selection
     };
   }
-  console.log(phoneSelected)
-
   return (
     <div className='card-schedule'>
       {showSchedule && (
@@ -59,6 +74,7 @@ const MyAccount:React.FunctionComponent = () => {
             <input 
               onChange = {(event:any) => setFilter({...filter,search:event.target.value})} 
               type="text" 
+              placeholder='Digite um texto para filtrar'
               className="input-text" 
               />
               <input 
@@ -80,8 +96,9 @@ const MyAccount:React.FunctionComponent = () => {
               >Filtrar</button>
           </div>
       </div>
-      <div className='table-schedule'>
-        {schedules && schedules.length && window.screen.width > 700 &&
+      <ToastContainer/>
+      {schedules && schedules.length && window.screen.width > 700 && <div className='table-schedule'>
+        
         <table>
           <thead>
             <tr>
@@ -107,19 +124,22 @@ const MyAccount:React.FunctionComponent = () => {
                     <td>{item.hour}</td>
                     <td>{item.dateRegister}</td>
                     <td>
-                      <img data-tip="Cancelar agendamento" style={{cursor:'pointer'}}src={canceled} alt="" width="30px" height="30px"/>
+                      <img data-tip="Cancelar agendamento" style={{cursor:'pointer',fontFamily:'poppins'}}src={canceled} alt="" width="30px" height="30px"
+                      onClick={() => {
+                        openModalConfirm(item._id)
+                      }}/>
                     </td>
                   </tr>
                 )
               })}
           </tbody>
-        </table>}
-      </div>
+        </table>
+      </div>}
       {schedules && schedules.length && window.screen.width < 700  && 
         <div className='mobile-table-content'>
-          {schedules.map(item => {
+          {schedules.map((item,index) => {
             return(
-              <div className='mobile-table-row'>
+              <div className='mobile-table-row' key={index}>
                 <span><b>Usuário:</b> {item.user.name}</span>
                 <span><b>Telefone:</b>{item.user.phone}</span>
                 <span><b>Tipo do Serviço:</b>{item.typeCut.title}</span>
@@ -127,8 +147,12 @@ const MyAccount:React.FunctionComponent = () => {
                 <span><b>Data:</b>{item.date}</span>
                 <span><b>Hora:</b>{item.hour}</span>
                 <span><b>Data Cadastro:</b>{item.dateRegister}</span>
-                <span><b>Ações:</b>
-                <p className="cancel-schedule">
+                <span>
+                <p  
+                onClick={() => {
+                  openModalConfirm(item._id)
+                 }}
+                className="cancel-schedule">
                   Cancelar
                 </p>
                 </span>
@@ -143,25 +167,41 @@ const MyAccount:React.FunctionComponent = () => {
 
         </div>)}
       {!showSchedule && (
-         <div className="form-user">
-         <h1>Digite seu whatsapp</h1>
+         <div className="form-user-acc">
+         <h1 style={{fontSize:30}}>Digite seu whatsapp</h1>
+         <ToastContainer/>
 
-         <div className="line-button" style={{height:'5vh'}}>
+         <div className="line-button-acc" style={{height:'5vh'}}>
       
-             <InputMask mask="(99)99999-9999" maskChar={null} className = "input-text"
+             <InputMask mask="(99)99999-9999" maskChar={null} className = "input-text-acc"
              placeholder = "Digite seu whatsapp"
              onChange={handleUser} beforeMaskedValueChange={beforeMaskedValueChange} />
          </div>
          
-         <div className="line-button">
+         <div className="line-button-acc">
            
-           <button disabled={phoneSelected.length <14} className="save-schedule" onClick={() =>{
+           <button disabled={phoneSelected.length <14} className="save-schedule-acc save-schedule" onClick={() =>{
             getSchedulesByUser(phoneSelected)
            }}>Buscar agendamentos</button>
 
          </div>
         </div>
       )}
+      {modalConfirm !== '0' && <div className='modal-confirm-background'></div> }
+      {modalConfirm !== '0'&&
+      <div className="modal-confirm">
+        <span>Tem certeza que deseja cancelar este agendamento?</span>
+        <div className='modal-confirm-buttons'>
+          <button onClick={() => {
+            openModalConfirm('0')
+          }}>Cancelar</button>
+          <button onClick={() => {
+             deleteSchedule(String(modalConfirm),phoneSelected)
+             openModalConfirm('0')
+
+          }}>Confirmar</button>
+        </div>
+      </div>}
     </div>
   )
 }

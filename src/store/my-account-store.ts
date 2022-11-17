@@ -1,11 +1,13 @@
-import { getSchedulesByUserApi } from './../services/schedule-service';
+import { deleteScheduleApi, getSchedulesByUserApi } from './../services/schedule-service';
 import create  from 'zustand';
+import { toast } from 'react-toastify';
 
 interface initialData  {
   showSchedule:boolean,
   setShowSchedule:(show:boolean) => void,
   getSchedulesByUser:(user:any) => void,
   getSchedulesFilter:(user:any,phone:string) => void,
+  deleteSchedule:(id:string,phone:string) => void,
   schedules:any[],
   isLoading:boolean,
   phoneSelected:string,
@@ -23,7 +25,40 @@ const store = create<initialData>((set) => ({
     phoneSelected:'',
     schedules:[]
   })) ,
-  setPhoneSelected:(phoneSelected) => {console.log(phoneSelected)
+  deleteSchedule:(id,phone) => {
+    set((state) => ({
+      ...state,
+      isLoading: true
+    }))
+    toast.success('Agendamento excluido com sucesso!', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });   
+     deleteScheduleApi(id)
+    .subscribe(() => {
+      getSchedulesByUserApi(phone).subscribe((response) => {
+        set((state) => ({
+          ...state,
+          schedules: response,
+          isLoading:false,
+          showSchedule:true
+        }))
+      },err => {
+        set((state) => ({
+          ...state,
+          schedules: err,
+          isLoading:false
+        }))
+      })
+    })
+  },
+  setPhoneSelected:(phoneSelected) => {
   set((state) => ({
     ...state,
     phoneSelected
@@ -38,8 +73,7 @@ const store = create<initialData>((set) => ({
         ...state,
         isLoading: true
       }))
-      console.log(phone)
-      const user = phone + '?search=' + filter.search
+      const user = phone + '?search=' + filter.search + '&inicio=' + filter.inicio + '&fim=' + filter.fim
       getSchedulesByUserApi(user).subscribe((response) => {
         set((state) => ({
           ...state,
@@ -48,6 +82,17 @@ const store = create<initialData>((set) => ({
           showSchedule:true,
         }))
       },err => {
+        console.log(err)
+        toast.error('Não existem agendamento para este telefone!', {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });  
         set((state) => ({
           ...state,
           schedules: err,
@@ -69,6 +114,17 @@ const store = create<initialData>((set) => ({
         showSchedule:true
       }))
     },err => {
+      console.log(err)
+      toast.error('Não existem agendamento para este telefone!', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });  
       set((state) => ({
         ...state,
         schedules: err,

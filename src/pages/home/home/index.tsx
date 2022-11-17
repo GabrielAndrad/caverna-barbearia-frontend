@@ -7,8 +7,13 @@ import Footer from '../../../components/Footer'
 import Schedule from './schedule'
 import store from '../../../store/home-store'
 
+interface IProps {
+  changeMenu: (menu) => void
+}
 
-const Home = () => {
+const Home:React.FunctionComponent<IProps> = ({
+  changeMenu
+}) => {
   const {showSchedule,setShowSchedule} = store()
   return (
     <div>
@@ -22,14 +27,16 @@ const Home = () => {
         <button onClick={() => setShowSchedule(true)}>AGENDAR HORÁRIO</button>
       </section>
       <section>
-        <Maps/>
+       {!showSchedule && <Maps/>}
       </section>
       <section>
        <Footer/>
       </section>
 
       <aside>
-        {showSchedule && <Schedule/>}
+        {showSchedule && <Schedule changeMenu = {(menu) => {
+          changeMenu(menu)
+        }}/>}
       </aside>
     </div>
   )

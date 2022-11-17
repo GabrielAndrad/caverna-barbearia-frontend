@@ -12,8 +12,10 @@ const Footer = () => {
 
           window.open(`https://api.whatsapp.com/send?phone=5515%99189-1072&text=${texto}`)
       }}alt=""/>
-      <img src={face} alt=""/>
-      <img className = "insta" src={insta} alt=""/>
+      <img style={{marginLeft:8}}src={face} alt=""/>
+      <img className = "insta" src={insta} alt="" onClick={() => {
+        window.open('https://www.instagram.com/_capitao_cavernna/')
+      }}/>
     </div>
   )
 }
