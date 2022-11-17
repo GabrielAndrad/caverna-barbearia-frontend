@@ -21,13 +21,13 @@ const Schedule:React.FunctionComponent<IProps> = ({
   changeMenu
 }) => {
   const {setShowSchedule} = storeHome()
-  const {setLoading,isLoading,hoursSelected} = storeSchedule()
+  const {setLoading,isLoading,hoursSelected,getHours} = storeSchedule()
   const [details,setShowDetails] = useState([])
   const [typeSelected,setTypeSelected] = useState({
     title: '',
     value:''
   })
-  const [selectDate,onChangeSelectDate] = useState()
+  const [selectDate,onChangeSelectDate] = useState<any>()
   const [scheduleSelected,setScheduleSelected] = useState<any>({user:{name:'',phone:''}})
   const [steps,setStep] = useState('infos') 
   const {setPhoneSelected,getSchedulesByUser} = store()
@@ -70,6 +70,8 @@ const Schedule:React.FunctionComponent<IProps> = ({
   }]
 
   const handleDetails = (item) => {
+    getHours(new Date())
+    onChangeSelectDate(new Date())
     setTypeSelected(item)
   }
 
@@ -236,7 +238,6 @@ const Schedule:React.FunctionComponent<IProps> = ({
                 <img src={img} alt=""/>
                <span>{item.title}</span>
               </div>
-            
                <span>{item.value}</span>
               </li>
              )
@@ -328,14 +329,14 @@ const Schedule:React.FunctionComponent<IProps> = ({
       {steps === 'user' && (
         <div className="form-user">
           <h1>Preencha seus dados</h1>
-          <div className="line-button" style={{height:'5vh'}}>
+          <div className="line-button" style={{maxHeight:'5vh',minHeight:'5vh'}}>
             <input 
               onChange = {(event:any) => handleUser('name',event.target.value)} 
               type="text" 
               className="input-text" 
               placeholder="Digite seu nome"/>
           </div>
-          <div className="line-button" style={{height:'5vh'}}>
+          <div className="line-button" style={{maxHeight:'5vh',minHeight:'5vh'}}>
           
               <InputMask mask="(99)99999-9999" maskChar={null} className = "input-text"
               placeholder = "Digite seu whatsapp"

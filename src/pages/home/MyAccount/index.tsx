@@ -58,7 +58,7 @@ const MyAccount:React.FunctionComponent<IProps> = ({
     };
   }
   return (
-    <div className='card-schedule'>
+    <div className={showSchedule?'card-schedule':'card-schedule-flex'}>
       {showSchedule && (
       <div className='card-list'>
         <div className='title-line'>
@@ -68,9 +68,8 @@ const MyAccount:React.FunctionComponent<IProps> = ({
         onClick={reset}
         >Sair</span>
         </div>
-    
       <div>
-          <div className='line-filter' style={{height:'5vh'}}>
+         {phoneSelected === '(12)34567-8910' && <div className='line-filter' style={{maxHeight:'5vh',minHeight:'5vh'}}>
             <input 
               onChange = {(event:any) => setFilter({...filter,search:event.target.value})} 
               type="text" 
@@ -94,7 +93,7 @@ const MyAccount:React.FunctionComponent<IProps> = ({
                 getSchedulesFilter(filter,phoneSelected)
               }}
               >Filtrar</button>
-          </div>
+          </div>}
       </div>
       <ToastContainer/>
       {schedules && schedules.length && window.screen.width > 700 && <div className='table-schedule'>
@@ -124,7 +123,8 @@ const MyAccount:React.FunctionComponent<IProps> = ({
                     <td>{item.hour}</td>
                     <td>{item.dateRegister}</td>
                     <td>
-                      <img data-tip="Cancelar agendamento" style={{cursor:'pointer',fontFamily:'poppins'}}src={canceled} alt="" width="30px" height="30px"
+                      <img data-tip="Cancelar agendamento" style={{cursor:'pointer'}}
+                      src={canceled} alt="" width="30px" height="30px"
                       onClick={() => {
                         openModalConfirm(item._id)
                       }}/>
@@ -149,6 +149,7 @@ const MyAccount:React.FunctionComponent<IProps> = ({
                 <span><b>Data Cadastro:</b>{item.dateRegister}</span>
                 <span>
                 <p  
+                
                 onClick={() => {
                   openModalConfirm(item._id)
                  }}
@@ -171,9 +172,10 @@ const MyAccount:React.FunctionComponent<IProps> = ({
          <h1 style={{fontSize:30}}>Digite seu whatsapp</h1>
          <ToastContainer/>
 
-         <div className="line-button-acc" style={{height:'5vh'}}>
+         <div className="line-button-acc" style={{maxHeight:'5vh',minHeight:'5vh'}}>
       
-             <InputMask mask="(99)99999-9999" maskChar={null} className = "input-text-acc"
+             <InputMask mask="(99)99999-9999" maskChar={null} 
+             className = "input-text-acc"
              placeholder = "Digite seu whatsapp"
              onChange={handleUser} beforeMaskedValueChange={beforeMaskedValueChange} />
          </div>
