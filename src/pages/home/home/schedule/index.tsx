@@ -128,11 +128,12 @@ const Schedule:React.FunctionComponent<IProps> = ({
     saveScheduleApi(scheduleSelected)
     .subscribe(response => {
       setLoading(false)
+      setPhoneSelected(scheduleSelected.user.phone)
+      getSchedulesByUser(scheduleSelected.user.phone)
+      changeMenu('my-account')
       setTimeout(() => {
         setShowSchedule(false)
-        setPhoneSelected(scheduleSelected.user.phone)
-        getSchedulesByUser(scheduleSelected.user.phone)
-        changeMenu('my-account')
+       
       },3000)
 
 
@@ -329,14 +330,14 @@ const Schedule:React.FunctionComponent<IProps> = ({
       {steps === 'user' && (
         <div className="form-user">
           <h1>Preencha seus dados</h1>
-          <div className="line-button" style={{maxHeight:'5vh',minHeight:'5vh'}}>
+          <div className="line-button" style={{maxHeight:'50px',minHeight:'50px'}}>
             <input 
               onChange = {(event:any) => handleUser('name',event.target.value)} 
               type="text" 
               className="input-text" 
               placeholder="Digite seu nome"/>
           </div>
-          <div className="line-button" style={{maxHeight:'5vh',minHeight:'5vh'}}>
+          <div className="line-button" style={{maxHeight:'50px',minHeight:'50px'}}>
           
               <InputMask mask="(99)99999-9999" maskChar={null} className = "input-text"
               placeholder = "Digite seu whatsapp"
