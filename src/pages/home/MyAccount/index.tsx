@@ -96,7 +96,7 @@ const MyAccount:React.FunctionComponent<IProps> = ({
           </div>}
       </div>
       <ToastContainer/>
-      {schedules && schedules.length && window.screen.width > 700 && <div className='table-schedule'>
+      {schedules && schedules.length && window.screen.width > 900 && <div className='table-schedule'>
         
         <table>
           <thead>
@@ -135,7 +135,7 @@ const MyAccount:React.FunctionComponent<IProps> = ({
           </tbody>
         </table>
       </div>}
-      {schedules && schedules.length && window.screen.width < 700  && 
+      {schedules && schedules.length && window.screen.width < 900  && 
         <div className='mobile-table-content'>
           {schedules.map((item,index) => {
             return(
