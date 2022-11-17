@@ -256,7 +256,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
        }
      </ul>}
      {typeSelected.title && <CalendarDate selectDate = {(event) => onChangeSelectDate(event)}/>}
-     {typeSelected.title && <h1>Selecione um horário disponível para a data selecionada</h1>}
+     {typeSelected.title && <h1 style={{width:'90%',marginLeft:'5%'}}>Selecione um horário disponível para a data selecionada</h1>}
      {typeSelected.title &&  
      <div className="list-container">
        <div className="list-hours">
