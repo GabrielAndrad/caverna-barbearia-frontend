@@ -11,7 +11,7 @@ import { saveScheduleApi } from '../../../../services/schedule-service'
 import '../../../../../node_modules/react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
-import store from '../../../../store/my-account-store'
+import ModalScheduleEnd from '../schedule-end'
 interface IProps {
   changeMenu:(menu) => void
 }
@@ -22,62 +22,43 @@ const Schedule:React.FunctionComponent<IProps> = ({
 }) => {
   const {setShowSchedule} = storeHome()
   const {setLoading,isLoading,hoursSelected,getHours} = storeSchedule()
-  const [details,setShowDetails] = useState([])
   const [typeSelected,setTypeSelected] = useState({
     title: '',
-    value:''
+    value:'',
+    time:1,
+    id:0
   })
   const [selectDate,onChangeSelectDate] = useState<any>()
   const [scheduleSelected,setScheduleSelected] = useState<any>({user:{name:'',phone:''}})
   const [steps,setStep] = useState('infos') 
-  const {setPhoneSelected,getSchedulesByUser} = store()
+  const [modalEnd,openModalEnd]= useState('')
 
   const scheduleTypes = [{
     id:1,
-    name:'CABELO',
-    details:[{
-      title:"Corte na Máquina",
-      value: 'R$ 20,00'
-    },{
-      title:'Corte Social',
-      value:'R$ 25,00'
-    },{
-      title:'Corte Degradê',
-      value:'R$ 30,00'
-    }]
+    title:'Degradê (1 hora)',
+    value:'R$ 30.00',
+    time:2
   },{
     id:2,
-    name:'BARBA',
-    details:[{
-      title:'Barba',
-      value:'R$ 20.00'
-    }]
+    title:'Tradicional (30 min)',
+    value:'R$ 25.00',
+    time:1 
   },{
     id:3,
-    name:'SOBRANCELHA',
-    details:[
-      {title:'Sobrancelha',value:'R$ 10,00'}
-    ]
+    title:'Barba (30 min)',
+    value:'R$ 20.00',
+    time:1
   },{
     id:4,
-    name:'COMBOS',
-    details: [
-      {title:'Corte + Sobrancelha',value:'R$ 30,00'},
-      {title:'Corte + Barba',value:'R$ 40,00'},
-      {title:'Corte + Barba + Sobrancelha',value:'R$ 60,00'},
-
-    ]
+    title:'Pezinho (30 min)',
+    value:'R$ 10.00',
+    time:1
   }]
 
-  const handleDetails = (item) => {
+  const handleTypes = (item) => {
     getHours(new Date())
     onChangeSelectDate(new Date())
     setTypeSelected(item)
-  }
-
-  const handleTypes = (item) => {
-    setShowDetails(item.details)
-
   }
 
   const handleSelectHours = (item) => {
@@ -85,10 +66,13 @@ const Schedule:React.FunctionComponent<IProps> = ({
       setScheduleSelected({
         typeCut: {
           title:typeSelected.title,
-          price:typeSelected.value
+          price:typeSelected.value,
+          time:typeSelected.time,
+          id: typeSelected.id
         },
         dateRegister:moment(new Date()).format('DD/MM/YYYY'),
         hour: item.value,
+        time:item.time,
         date: selectDate,
         user: {
           name:'',
@@ -106,15 +90,9 @@ const Schedule:React.FunctionComponent<IProps> = ({
       if(steps === 'user'){
         setStep('infos')
       } else {
-        if(!!scheduleSelected){
-          setScheduleSelected(undefined)
-        } else {
           if(typeSelected){
-            setTypeSelected({title:'',value:''})
-            setShowDetails([])
+            setTypeSelected({title:'',value:'',time:0,id:0})
             onChangeSelectDate(undefined)
-
-          }
         }
       }
     }
@@ -128,15 +106,8 @@ const Schedule:React.FunctionComponent<IProps> = ({
     saveScheduleApi(scheduleSelected)
     .subscribe(response => {
       setLoading(false)
-      setPhoneSelected(scheduleSelected.user.phone)
-      getSchedulesByUser(scheduleSelected.user.phone)
-      changeMenu('my-account')
-      setTimeout(() => {
-        setShowSchedule(false)
-       
-      },3000)
-
-
+      console.log(response.scheduleModel._id)
+      openModalEnd(response.scheduleModel._id)
       toast.success('Agendamento cadastrado com sucesso!', {
         position: "bottom-right",
         autoClose: 5000,
@@ -221,21 +192,19 @@ const Schedule:React.FunctionComponent<IProps> = ({
         <span className="icon-close" onClick={() => setShowSchedule(false)}>x</span>
         <span 
         onClick={returnStep}
-        style={{position:'absolute',left:10,top:10,display:'flex',alignItems:'center',cursor:'pointer'}}> 
+        style={{position:'absolute',left:10,top:10,display:'flex',alignItems:'center',cursor:'pointer',paddingRight:'20px',paddingBottom:20,paddingTop:10,textAlign:'center'}}> 
         <img alt = "" src={returnImage} style={{width:20,height:20}}/> 
         Voltar
         </span>
       {steps === 'infos' && (
         <div>
-             {!typeSelected.title ?<h1>Selecione o Serviço</h1>:<h1>Selecione uma data disponível</h1>}
-       
-
+        {!typeSelected.title ?<h1>Selecione o Serviço</h1>:<h1>Selecione uma data disponível</h1>}
        {!typeSelected.title && <ul className="schedule-list">
-         {details.length > 0?(
-           details.map((item,index) => {
+        {
+           scheduleTypes.map((item) => {
              return(
-             <li  key = {index} onClick={() => handleDetails(item)} className="schedule-list-item" style={{justifyContent:'space-between'}}>
-              <div style={{display:'flex',alignItems:"center"}}>
+             <li  key = {item.id} onClick={() => handleTypes(item)} className="schedule-list-item" style={{justifyContent:'space-between'}}>
+             <div style={{display:'flex',alignItems:"center"}}>
                 <img src={img} alt=""/>
                <span>{item.title}</span>
               </div>
@@ -243,29 +212,25 @@ const Schedule:React.FunctionComponent<IProps> = ({
               </li>
              )
            })
-         ):(
-           scheduleTypes.map((item) => {
-             return(
-             <li  key = {item.id} onClick={() => handleTypes(item)} className="schedule-list-item">
-               <img src={img} alt=""/>
-               <span>{item.name}</span>
-
-               </li>
-             )
-           })
-           )
-       }
-     </ul>}
+        }
+     </ul>
+     }
+     {!typeSelected.title &&           
+     <span className="line-text">
+       Os tipos de serviços tem diferentes tempos estimados, portanto os horários disponíveis são alterados de acordo com o tempo do serviço.
+      </span>
+      }
      {typeSelected.title && <CalendarDate selectDate = {(event) => onChangeSelectDate(event)}/>}
      {typeSelected.title && <h1 style={{width:'90%',marginLeft:'5%'}}>Selecione um horário disponível para a data selecionada</h1>}
      {typeSelected.title &&  
      <div className="list-container">
        <div className="list-hours">
        { hoursSelected.map((el) => {
+        const index = hoursSelected.map(hour => hour.value).indexOf(el.value)
            return (
-             <div 
+            <div 
              onClick={(event) => {
-              !el.disabled?handleSelectHours(el):
+              !el.disabled && !(typeSelected.time === 2 && (hoursSelected[index+1]?hoursSelected[index+1].disabled:true))?handleSelectHours(el):
               toast.error('Este horário não está disponivel no momento!', {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -279,12 +244,22 @@ const Schedule:React.FunctionComponent<IProps> = ({
              }}
              className = "list-hours-items"
              style={{
-               backgroundColor:el.disabled?'#ddd':el.value === scheduleSelected?.hour?'#1087ff':'#fff',
-               color:el.disabled?'#fff':el.value === scheduleSelected?.hour?'#fff':'#000'}} key = {el.value}>
+               backgroundColor:
+               typeSelected.time === 2?
+               el.disabled?'#ddd':el.value === scheduleSelected?.hour?'#1087ff':(hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?
+               '#ddd':el.value === scheduleSelected?.hour?'#1087ff':'#fff': el.disabled?'#ddd':el.value === scheduleSelected?.hour?'#1087ff':'#fff',
+               color:
+               typeSelected.time === 2?
+               el.disabled?'#fff':el.value === scheduleSelected?.hour?'#fff': (hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?
+               '#fff':el.value === scheduleSelected?.hour?'#fff':'#000': el.disabled?'#fff':el.value === scheduleSelected?.hour?'#fff':'#000'
+               }} key = {el.value}>
             {!isLoading &&<span>{el.value.replace(':00','')}</span> }
             </div>
+
+            
            )
-         })}
+         })
+         }
          </div>
      </div>
      
@@ -353,11 +328,16 @@ const Schedule:React.FunctionComponent<IProps> = ({
 
           </div>
           }
+          
         </div>
       )}
 
-       
-       
+   {!!modalEnd && <ModalScheduleEnd
+    openModalConfirm={openModalEnd}
+    scheduleId={modalEnd}
+    setShowSchedule={() => setShowSchedule(false)}
+
+    />}
         
     </div>
   )

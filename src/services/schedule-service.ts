@@ -25,9 +25,20 @@ export const saveScheduleApi = (data:ISchedule) => {
 }
 
 export const getSchedulesByUserApi = (user) => {
-  return get(`/schedules-by-user/${user}`)
+  return get(`/schedules-by-id/${user}`)
 }
 
 export const deleteScheduleApi = (id) => {
   return del(`/schedule/${id}`)
 } 
+
+export const getInfosApi = (filter:any) => {
+  const filterFormat = '?search=' + filter.search + '&inicio=' + filter.inicio + '&fim=' + filter.fim
+
+  return get(`/infos${filterFormat}`)
+}
+
+
+export const saveholiday = (params) => {
+  return post(`/holiday`,params)
+}

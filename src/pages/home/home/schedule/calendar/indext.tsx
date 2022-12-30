@@ -24,12 +24,12 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
   return (
     <div className = "data-container">
       <Calendar 
-      onChange={(event) => onChangeValue(event)} 
-      value={value} 
-      minDate={new Date()} 
-      maxDate={new Date(dateD.setDate(dateF.getDate() + 30))}
-      locale={'pt-BR'}
-      tileDisabled={(date) =>date.date.getDay() === 0 }
+        onChange={(event) => onChangeValue(event)} 
+        value={value} 
+        minDate={new Date()} 
+        maxDate={new Date(dateD.setDate(dateF.getDate() + 30))}
+        locale={'pt-BR'}
+        tileDisabled={(date) =>date.date.getDay() === 0 }
       />
     </div>
   );

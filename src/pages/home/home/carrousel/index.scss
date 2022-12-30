@@ -1,0 +1,51 @@
+.carrousel-container {
+
+  background:linear-gradient(to bottom,black,#000,#000,white);
+  width: 100%;
+  height: 70vh;
+  margin-bottom: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  img {
+    max-width: 90%;
+    min-width: 90%;
+    width: auto;
+    max-height: 70vh;
+    min-height: 70vh;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  span {
+    color:#fff;
+    font-size: 6vw;
+    font-weight: 600;
+    font-family:'poppins';
+    margin-bottom: 5vh;
+    margin-top: 5vh;
+  }
+}
+
+@media screen and (max-width: 900px) {
+.carrousel-container {
+  width: 100%;
+  height: 50vh;
+  margin-bottom: 5vh;
+
+  img {
+    max-width: 90%;
+    min-width: 90%;
+    width: auto;
+    max-height: 50vh;
+    min-height: 50vh;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+
+  }
+}
+}
+

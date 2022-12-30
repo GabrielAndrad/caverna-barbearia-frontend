@@ -1,17 +1,20 @@
-.footer {
+.footer { 
   width: 100%;
-  background-color: #000;
-  height: 8vh;
+  background:#000;
+  height: 6vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap:10px;
-  padding-left: 20px;
+  justify-content:flex-start;
+  gap:0px;
+  padding-left: 10px;
 
   img {
-    width: 30px;
-    height: 30px;
-    opacity: 1;
+    width:20px;
+    height: 20px;
+  }
+  .insta{
+   width: 40px;
+   height: 40px;
   }
 
   img:hover {
@@ -20,14 +23,14 @@
     opacity: 0.8;
   }
 
-  .insta {
-    width:40px;
-    height: 40px;
-    padding:0px !important;
-  }
-  .insta:hover {
-    width: 50px;
-    height: 50px;
+
+  @media screen and (max-width: 900px) {
+
+    .insta{
+       width: 32px;
+       height: 32px;
+       margin-left: 5px;
+    }
   }
 }
 

@@ -6,6 +6,7 @@ import Maps from './maps'
 import Footer from '../../../components/Footer'
 import Schedule from './schedule'
 import store from '../../../store/home-store'
+import CarrouselComponent from './carrousel'
 
 interface IProps {
   changeMenu: (menu) => void
@@ -27,7 +28,10 @@ const Home:React.FunctionComponent<IProps> = ({
         <button onClick={() => setShowSchedule(true)}>AGENDAR HORÁRIO</button>
       </section>
       <section>
-       {!showSchedule && <Maps/>}
+      {!showSchedule && <CarrouselComponent/>}
+      {!showSchedule && <Maps/>}
+
+
       </section>
       <section>
        <Footer/>

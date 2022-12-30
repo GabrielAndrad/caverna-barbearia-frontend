@@ -1,6 +1,10 @@
 .map-container{
- padding: 100px 100px;
- position: relative;
+  background: #fff;
+  position: relative;  
+  margin-top:5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
  img {
   width:100%;
@@ -19,8 +23,7 @@
 @media screen and (max-width: 900px) {
 
   .map-container {
-    padding: 5%;
-    
+    margin-bottom: 2vh;    
     img {
       height: 400px;
     }

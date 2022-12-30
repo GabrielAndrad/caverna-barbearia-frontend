@@ -17,20 +17,20 @@ const Header:React.FunctionComponent<IProps> = ({
   return (
     <div className="header">
      {menu === 'home' && <div className='title'>
-        <img src={clockImage} alt="" width="20px" height="20px"/>
-        <span>Aberto de Seg. a Sáb. das 8h as 19h</span>
+        <img src={clockImage} alt="" width="15px" height="15px"/>
+        <span>Aberto de Ter. a Sáb. das 9h as 18h</span>
       </div>}
       {menu === 'my-account' &&<div className='title' onClick={() => changeMenu('home')}>
-        <img src={returnImage} alt="" width="20px" height="20px"/>
+        <img src={returnImage} alt="" width="15px" height="15px"/>
         <span>Voltar para home</span>
       </div>}
       {menu === 'home' &&<div className='title' onClick={() => changeMenu('my-account')}>
-        <img src={userImage} alt="" width="20px" height="20px"/>
+        <img src={userImage} alt="" width="15px" height="15px"/>
         <span>Minha Conta</span>
       </div>}
 
       {menu === 'my-account' &&<div className='title' onClick={() => changeMenu('home')}>
-        <img src={clockImage} alt="" width="20px" height="20px"/>
+        <img src={clockImage} alt="" width="15px" height="15px"/>
         <span>Agendar Horário</span>
       </div>}
     

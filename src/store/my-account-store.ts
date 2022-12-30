@@ -1,4 +1,4 @@
-import { deleteScheduleApi, getSchedulesByUserApi } from './../services/schedule-service';
+import { deleteScheduleApi, getSchedulesByUserApi, getInfosApi } from './../services/schedule-service';
 import create  from 'zustand';
 import { toast } from 'react-toastify';
 
@@ -7,11 +7,13 @@ interface initialData  {
   setShowSchedule:(show:boolean) => void,
   getSchedulesByUser:(user:any) => void,
   getSchedulesFilter:(user:any,phone:string) => void,
-  deleteSchedule:(id:string,phone:string) => void,
+  deleteSchedule:(id:string,phone:string,filter:any) => void,
   schedules:any[],
   isLoading:boolean,
   phoneSelected:string,
   reset:() => void,
+  getInfos:(filter) => void,
+  infos:any,
   setPhoneSelected:(phone) => void
 }
 const store = create<initialData>((set) => ({
@@ -19,30 +21,43 @@ const store = create<initialData>((set) => ({
   isLoading:false,
   schedules:[],
   phoneSelected:'',
+  infos:{},
+  getInfos: (filter) => {
+    
+    getInfosApi(filter)
+    .subscribe((response) => {
+      set((state) => ({
+        infos:response,
+      }))
+    })
+  },
   reset:() => 
   set((state) => ({
     showSchedule:false,
     phoneSelected:'',
     schedules:[]
   })) ,
-  deleteSchedule:(id,phone) => {
+  deleteSchedule:(id,phone,filter) => {
     set((state) => ({
       ...state,
       isLoading: true
     }))
-    toast.success('Agendamento excluido com sucesso!', {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });   
+  
      deleteScheduleApi(id)
     .subscribe(() => {
-      getSchedulesByUserApi(phone).subscribe((response) => {
+      toast.success('Agendamento excluido com sucesso!', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });  
+        const user = phone + '?search=' + filter.search + '&inicio=' + filter.inicio + '&fim=' + filter.fim
+
+      getSchedulesByUserApi(user).subscribe((response) => {
         set((state) => ({
           ...state,
           schedules: response,
