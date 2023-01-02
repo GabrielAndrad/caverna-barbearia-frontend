@@ -40,6 +40,7 @@ const ModalHoliday:React.FunctionComponent<IProps> = ({
                 <option style={{background:'#fff',color:'#000'}}>{el.value}</option>
               )
             })}
+            <option style={{background:'#fff',color:'#000'}}>18:00:00</option>
           </select>
         <select 
           onChange = {(event:any) => setRangeHoliday({...rangeHoliday,fim:event.target.value})}
@@ -52,6 +53,7 @@ const ModalHoliday:React.FunctionComponent<IProps> = ({
                 <option>{el.value}</option>
               )
             })}
+              <option style={{background:'#fff',color:'#000'}}>18:00:00</option>
           </select>
           </div>
         </div>

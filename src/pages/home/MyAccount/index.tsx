@@ -64,7 +64,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
         <div className='card-list'>
           <div className='title-line'>
             <h1>Meus Agendamentos {isLoading && <span><LoadingSpinner /></span>}
-              <img src={clock} width="15px" height={15} alt="" onClick={showHolidays} />
+              <img src={clock} width="20px" height={20} alt="" onClick={showHolidays} />
             </h1>
             <span
               style={{ fontWeight: 600, cursor: 'pointer' }}
@@ -76,7 +76,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
               <input
                 onChange={(event: any) => setFilter({ ...filter, search: event.target.value })}
                 type="text"
-                placeholder='Digite um texto para filtrar'
+                placeholder='Digite um texto para filtrar os agendamentos'
                 className="input-text"
               />
               <input
@@ -98,6 +98,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
                 }}
               >Filtrar</button>
               <button
+                
                 onClick={() => {
                   showData ? openData(false) : openData(true)
                 }}
@@ -139,7 +140,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
 
           </div>
           <span className='forget-id' onClick={ () =>
-              window.open(`https://api.whatsapp.com/send?phone=5515%99189-1072&text=${texto}`)
+              window.open(`https://api.whatsapp.com/send?phone=5515991891072&text=${texto}`)
           }>Esqueceu seu ID? Clique aqui.</span>
 
         </div>

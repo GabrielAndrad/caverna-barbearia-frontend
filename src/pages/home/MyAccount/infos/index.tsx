@@ -21,7 +21,7 @@ const Infos :React.FunctionComponent<IProps>= ({
     
 
   return (
-    <div>
+    <div className='cards'>
       <div className='type-card'>
         <div className="header-card">
           <h1>Total de agendamentos</h1>

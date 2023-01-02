@@ -7,7 +7,7 @@ import './index.scss'
 const Footer = () => {
   return (
     <div className="footer">  
-     <img src={whats} style={{marginRight:'3vw'}}onClick={() => {
+     <img src={whats} style={{marginRight:'10px'}}onClick={() => {
           const texto = `Olá, tudo bem? Gostaria de tirar algumas duvidas sobre o agendamento.`
 
           window.open(`https://api.whatsapp.com/send?phone=5515%99189-1072&text=${texto}`)

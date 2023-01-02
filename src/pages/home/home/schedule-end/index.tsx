@@ -17,7 +17,7 @@ const ModalScheduleEnd:React.FunctionComponent<IProps> = ({
       <div className='modal-confirm-background '>
         
       </div>
-       <div className="modal-confirm">
+       <div className="modal-confirm-end">
         <span>Código do agendamento</span>
         <h1>{scheduleId}</h1>
         <span className="line-text-confirm">
