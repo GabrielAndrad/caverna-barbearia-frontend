@@ -1,3 +1,3 @@
 // export const baseApi = 'https://projeto-barbearia-backend.herokuapp.com'
-// export const baseApi = 'https://projeto-barbearia-backend.herokuapp.com'
-export const baseApi = 'http://localhost:4002'
+export const baseApi = 'https://projeto-barbearia-backend.herokuapp.com'
+// export const baseApi = 'http://localhost:4002'
