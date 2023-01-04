@@ -129,12 +129,14 @@
   margin-bottom:auto;
   background-color: #fff;
   border-radius:8px;
-  
+
+
   .icon-close {
     position: absolute;
     top:0px;
     right: 10px;
     font-size: 30px;
+    color:#fff;
     cursor: pointer;
   }
   .schedule-list {
@@ -145,7 +147,6 @@
     padding: 0px;
     -webkit-animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    
     .schedule-list-item {
      
       list-style: none;
@@ -316,12 +317,14 @@
     top:0vh;
     padding-top: 5vh;
     overflow: hidden;
+    background:linear-gradient(to bottom,black,#000,#fff,white);
+
     h1{
       font-size: 1em;
       margin-top: 1vh;
       -webkit-animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
       animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-
+        color:#fff;
     }
     .icon-close {
       right:30px;
@@ -333,10 +336,11 @@
       margin-left: 5%;
       .schedule-list-item{
         height: 5vh;
-        width: 85%;
+        width: 92%;
         margin-left: 0px;
         font-size: 12px;
         font-family: 'poppins-regular';
+        background: #fff;
         img {
           width: 30px;
           height: 30px;
@@ -380,18 +384,20 @@
         display: flex;
         justify-content: center;
         margin-left: 0%;
+        color:#fff
       }
     }
     .review{
       width: 100%;
-      justify-content: flex-start;
-      align-items: flex-start;
-      margin-left: 5%;
-     
+      justify-content: center;
+      align-items: center;
+      margin-left: 0px;
       span{
         width: 80%;
         height: 7vh;
         padding-left: 3%;
+        background: #fff;
+
       }
     }
 
@@ -400,8 +406,10 @@
       text-align: left;
       margin-left: 5%;
       padding-left: 2%;
+      font-weight: 600;
       -webkit-animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
       animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      color:#fff;
     }
 
     .form-user{

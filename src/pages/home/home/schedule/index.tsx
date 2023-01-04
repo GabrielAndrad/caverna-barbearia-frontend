@@ -53,6 +53,16 @@ const Schedule:React.FunctionComponent<IProps> = ({
     title:'Pezinho (30 min)',
     value:'R$ 10.00',
     time:1
+  },{
+    id:5,
+    title:'Degradê + Barba (1 hora)',
+    value:'R$ 50.00',
+    time:2
+  },{
+    id:6,
+    title:'Tradicional + Barba (1 hora)',
+    value:'R$ 45.00',
+    time:2
   }]
 
   const handleTypes = (item) => {

@@ -42,6 +42,12 @@ const Infos :React.FunctionComponent<IProps>= ({
             <li className="list-item-card">
             <span>Pézinho</span> <span className='value-card'>{infos.typeService.types.Pézinho}</span>
             </li>
+            <li className="list-item-card">
+            <span>Degradê + Barba</span> <span className='value-card'>{infos.typeService.types['Degradê + Barba']}</span>
+            </li>
+            <li className="list-item-card">
+             <span>Tradiconal + Barba</span> <span className='value-card'>{infos.typeService.types['Tradicional + Barba']}</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -64,6 +70,12 @@ const Infos :React.FunctionComponent<IProps>= ({
             </li>
             <li className="list-item-card">
             <span>Pézinho</span> <span className='value-card'>{formatCurrency(infos.priceService.types.Pézinho)}</span>
+            </li>
+            <li className="list-item-card">
+            <span>Degradê + Barba</span> <span className='value-card'>{formatCurrency(infos.priceService.types['Degradê + Barba'])}</span>
+            </li>
+            <li className="list-item-card">
+             <span>Tradiconal + Barba</span> <span className='value-card'>{formatCurrency(infos.priceService.types['Tradicional + Barba'])}</span>
             </li>
           </ul>
         </div>
