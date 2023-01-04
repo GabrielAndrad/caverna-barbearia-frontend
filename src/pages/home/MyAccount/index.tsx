@@ -64,7 +64,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
         <div className='card-list'>
           <div className='title-line'>
             <h1>Meus Agendamentos {isLoading && <span><LoadingSpinner /></span>}
-              <img src={clock} width="20px" height={20} alt="" onClick={showHolidays} />
+            {phoneSelected === '12345678910' && <img src={clock} width="20px" height={20}  style={{borderRadius:'50%'}} alt="" onClick={showHolidays} />}
             </h1>
             <span
               style={{ fontWeight: 600, cursor: 'pointer' }}
@@ -107,7 +107,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
           </div>
           <ToastContainer />
 
-          {!showData && (
+          {!showData &&(
             <div>
               <Schedules
                 schedules={schedules}
@@ -146,7 +146,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
         </div>
       )}
 
-      {showData && (
+      {showData &&  phoneSelected === '12345678910' && showSchedule &&(
         <div>
           <Infos infos={infos} filters={filter} />
         </div>
