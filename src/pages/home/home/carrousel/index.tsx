@@ -15,15 +15,6 @@ import video4 from '../../../../assets/carrousel/video-4.mp4'
 import video5 from '../../../../assets/carrousel/video-5.mp4'
 
 const CarrouselComponent = () => {
-
-  const customRenderItem = (item, props) => (
-    <item.type {...item.props} {...props} />
-  );
-
-
-  const getVideoId = url =>url.substr('https://www.youtube.com/watch?v='.length, url.length);
-
-
   return (
     <div  className="carrousel-container">
         <Carousel showArrows={true} showThumbs={false} showStatus={false} infiniteLoop={true} interval={10000} autoPlay={true}>
