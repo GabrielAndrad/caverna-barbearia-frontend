@@ -256,8 +256,8 @@ const Schedule:React.FunctionComponent<IProps> = ({
              style={{
                backgroundColor:
                typeSelected.time === 2?
-               el.disabled?'#ddd':el.value === scheduleSelected?.hour?'#1087ff':(hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?
-               '#ddd':el.value === scheduleSelected?.hour?'#1087ff':'#fff': el.disabled?'#ddd':el.value === scheduleSelected?.hour?'#1087ff':'#fff',
+               el.disabled?'#000':el.value === scheduleSelected?.hour?'#1087ff':(hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?
+               '#000':el.value === scheduleSelected?.hour?'#1087ff':'#fff': el.disabled?'#000':el.value === scheduleSelected?.hour?'#1087ff':'#fff',
                color:
                typeSelected.time === 2?
                el.disabled?'#fff':el.value === scheduleSelected?.hour?'#fff': (hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?

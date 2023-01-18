@@ -18,7 +18,7 @@ const Header:React.FunctionComponent<IProps> = ({
     <div className="header">
      {menu === 'home' && <div className='title'>
         <img src={clockImage} alt="" width="15px" height="15px"/>
-        <span>Aberto de Ter. a Sáb. das 9h as 18h</span>
+        <span>Aberto de Ter. a Sáb. das 9h as 20h</span>
       </div>}
       {menu === 'my-account' &&<div className='title' onClick={() => changeMenu('home')}>
         <img src={returnImage} alt="" width="15px" height="15px"/>
