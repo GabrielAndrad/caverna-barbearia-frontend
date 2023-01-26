@@ -18,6 +18,8 @@ const Footer = () => {
       <img className="insta" src={insta} alt="" onClick={() => {
         window.open('https://www.instagram.com/_capitao_cavernna/')
       }}/>
+
+      <span style={{fontSize:'8px',color:'#fff'}}>GABRIEL DE ANDRADE NUNES CONSULTORIA EM TECNOLOGIA DA INFORMACAO</span>
       </div>
   )
 }
