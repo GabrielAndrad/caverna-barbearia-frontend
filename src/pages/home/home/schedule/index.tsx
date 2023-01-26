@@ -46,12 +46,12 @@ const Schedule:React.FunctionComponent<IProps> = ({
   },{
     id:3,
     title:'Barba (30 min)',
-    value:'R$ 20.00',
+    value:'R$ 25.00',
     time:1
   },{
     id:4,
     title:'Pezinho (30 min)',
-    value:'R$ 10.00',
+    value:'R$ 15.00',
     time:1
   },{
     id:5,
@@ -61,7 +61,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
   },{
     id:6,
     title:'Tradicional + Barba (1 hora)',
-    value:'R$ 45.00',
+    value:'R$ 50.00',
     time:2
   }]
 

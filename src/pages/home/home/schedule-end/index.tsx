@@ -24,7 +24,7 @@ const ModalScheduleEnd:React.FunctionComponent<IProps> = ({
           O código do agendamento é utilizado para cancelar o agendamento ou para realizar uma consulta das informações do agendamento na opção Minha Conta. 
           <br/>
         </span>
-        <h1 style={{fontSize:12}}>Tire print ou copie o código para não perde-lo.</h1>
+        <h1 style={{fontSize:12,color:'#000'}}>Tire print ou copie o código para não perde-lo.</h1>
 
         <div className='modal-confirm-buttons'>
           <button onClick={() => {
