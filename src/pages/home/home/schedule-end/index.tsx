@@ -26,7 +26,7 @@ const ModalScheduleEnd:React.FunctionComponent<IProps> = ({
         </span>
         <h1 style={{fontSize:12,color:'#000'}}>Tire print ou copie o código para não perde-lo.</h1>
 
-        <div className='modal-confirm-buttons'>
+        <div className='modal-confirm-buttons sp_notify_prompt'>
           <button onClick={() => {
              openModalConfirm('')
              setShowSchedule()
