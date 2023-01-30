@@ -68,7 +68,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
 
   const handleTypes = (item) => {
     const Data = new Date()
-    Data.setDate(Data.getDate() + (new Date().getDay()))
+    Data.setDate(Data.getDate() + (new Date().getDay()+1))
     getHours((new Date().getDay() === 0 || new Date().getDay() === 1)? Data:new Date())
     onChangeSelectDate(new Date())
     setTypeSelected(item)
