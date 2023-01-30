@@ -10,8 +10,9 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
   selectDate
 } ) =>{
   const {getHours} = store()
-  const [value, onChange] = useState(new Date());
-  
+  const Data = new Date()
+  Data.setDate(Data.getDate() + (new Date().getDay()))
+  const [value, onChange] = useState((new Date().getDay() === 0 || new Date().getDay() === 1)?  Data:new Date());
   const onChangeValue = (event) => {
     onChange(event)
     getHours(event)
@@ -29,7 +30,7 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
         minDate={new Date()} 
         maxDate={new Date(dateD.setDate(dateF.getDate() + 30))}
         locale={'pt-BR'}
-        tileDisabled={(date) =>date.date.getDay() === 0 ||date.date.getDay() === 1 }
+        tileDisabled={(date) =>date.date.getDay() === 0 || date.date.getDay() === 1 }
       />
     </div>
   );

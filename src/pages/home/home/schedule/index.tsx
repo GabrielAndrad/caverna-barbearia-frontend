@@ -12,6 +12,7 @@ import '../../../../../node_modules/react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
 import ModalScheduleEnd from '../schedule-end'
+import { post } from '../../../../services/api'
 interface IProps {
   changeMenu:(menu) => void
 }
@@ -30,7 +31,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
   })
   const [selectDate,onChangeSelectDate] = useState<any>()
   const [scheduleSelected,setScheduleSelected] = useState<any>({user:{name:'',phone:''}})
-  const [steps,setStep] = useState('infos') 
+  const [steps,setStep] = useState<any>('infos') 
   const [modalEnd,openModalEnd]= useState('')
 
   const scheduleTypes = [{
@@ -66,7 +67,9 @@ const Schedule:React.FunctionComponent<IProps> = ({
   }]
 
   const handleTypes = (item) => {
-    getHours(new Date())
+    const Data = new Date()
+    Data.setDate(Data.getDate() + (new Date().getDay()))
+    getHours((new Date().getDay() === 0 || new Date().getDay() === 1)? Data:new Date())
     onChangeSelectDate(new Date())
     setTypeSelected(item)
   }
@@ -156,7 +159,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
 
     if(step === 'user'){
       if(scheduleSelected){
-        return !scheduleSelected.user || !scheduleSelected.user.phone || !scheduleSelected.user.name
+        return !scheduleSelected.user || (!scheduleSelected.user.phone || scheduleSelected.user.phone.length !== 14) || !scheduleSelected.user.name
       } else {
         return false
       }
@@ -173,7 +176,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
   }
 
   const onChange = (event) => {
-    handleUser('phone',event.target.value)
+      handleUser('phone',event.target.value)
   }
  
   const beforeMaskedValueChange = (newState, oldState, userInput) => {
@@ -277,8 +280,8 @@ const Schedule:React.FunctionComponent<IProps> = ({
       {typeSelected.title && 
           <div className="line-button">
             <button disabled={handleDisabled('date')} className="save-schedule" onClick={() => {
-              nextStep('user')
-              setScheduleSelected(scheduleSelected)
+                nextStep('user')
+                setScheduleSelected(scheduleSelected)
               }}>Continuar</button>
           </div>
       }
@@ -317,10 +320,12 @@ const Schedule:React.FunctionComponent<IProps> = ({
           <h1>Preencha seus dados</h1>
           <div className="line-button" style={{maxHeight:'50px',minHeight:'50px'}}>
             <input 
+              maxLength={50}
               onChange = {(event:any) => handleUser('name',event.target.value)} 
               type="text" 
               className="input-text" 
-              placeholder="Digite seu nome"/>
+              placeholder="Digite seu nome"
+              />
           </div>
           <div className="line-button" style={{maxHeight:'50px',minHeight:'50px'}}>
           
@@ -333,7 +338,31 @@ const Schedule:React.FunctionComponent<IProps> = ({
           <div className="line-button">
             
             <button disabled={handleDisabled('user')} className="save-schedule" onClick={() =>{
-              nextStep('review')
+              if(steps === 'user')
+                post(`https://hook.us1.make.com/wkwqejgw51h3j4u3d3ec8cm7yrybbacs`,{
+                     phone:scheduleSelected.user.phone
+                   }).subscribe((response) => {
+                    console.log(response)
+                    if(response){
+                      nextStep('review')
+                    } else {
+                      toast.error('Digite um telefone válido', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        })
+                    }
+
+                   },err => {
+                    nextStep('review')
+                   })
+                    
+                    
             }}>Continuar</button>
 
           </div>
