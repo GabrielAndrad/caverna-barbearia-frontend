@@ -140,7 +140,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
 
           </div>
           <span className='forget-id' onClick={ () =>
-              window.open(`https://api.whatsapp.com/send?phone=5515991891072&text=${texto}`)
+              window.open(`https://api.whatsapp.com/send?phone=5515997406083&text=${texto}`)
           }>Esqueceu seu ID? Clique aqui.</span>
 
         </div>
