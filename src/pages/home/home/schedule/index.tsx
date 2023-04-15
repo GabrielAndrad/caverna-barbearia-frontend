@@ -119,7 +119,6 @@ const Schedule:React.FunctionComponent<IProps> = ({
     saveScheduleApi(scheduleSelected)
     .subscribe(response => {
       setLoading(false)
-      console.log(response.scheduleModel._id)
       openModalEnd(response.scheduleModel._id)
       toast.success('Agendamento cadastrado com sucesso!', {
         position: "bottom-right",

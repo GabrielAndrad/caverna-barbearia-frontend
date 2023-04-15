@@ -97,3 +97,9 @@
     }
   }
 }
+
+@media screen and (max-height: 600px) {
+  .logo {
+    bottom: -41px !important;
+  }
+}

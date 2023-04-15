@@ -432,3 +432,15 @@
     }
   }
 }
+
+@media screen and (max-height: 700px) and (min-height:620px) {
+  .list-hours {
+    height: 30vh !important;
+  }
+}
+@media screen and (max-height: 620px) {
+  .list-hours {
+    height: 20vh !important;
+  }
+}
+
