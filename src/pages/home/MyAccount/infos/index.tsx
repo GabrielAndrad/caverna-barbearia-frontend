@@ -1,6 +1,7 @@
 import moment from 'moment'
 import React from 'react'
 import './index.scss'
+moment.locale('pt-br');
 
 interface IProps {
   infos:any,

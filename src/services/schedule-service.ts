@@ -1,6 +1,8 @@
 import { del, get, post } from "./api"
 import moment from 'moment'
 
+moment.locale('pt-br');
+
 export interface ISchedule{
     user:{
         name:String,

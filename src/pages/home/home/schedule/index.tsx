@@ -13,6 +13,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
 import ModalScheduleEnd from '../schedule-end'
 import { post } from '../../../../services/api'
+
+moment.locale('pt-br');
+
 interface IProps {
   changeMenu:(menu) => void
 }
@@ -70,7 +73,6 @@ const Schedule:React.FunctionComponent<IProps> = ({
     const Data = new Date()
     Data.setDate(Data.getDate() + (new Date().getDay()+1))
     getHours((new Date().getDay() === 0 || new Date().getDay() === 1)? Data:new Date())
-    onChangeSelectDate(new Date())
     setTypeSelected(item)
   }
 
@@ -233,8 +235,8 @@ const Schedule:React.FunctionComponent<IProps> = ({
       </span>
       }
      {typeSelected.title && <CalendarDate selectDate = {(event) => onChangeSelectDate(event)}/>}
-     {typeSelected.title && <h1 style={{width:'90%',marginLeft:'5%'}}>Selecione um horário disponível para a data selecionada</h1>}
-     {typeSelected.title &&  
+     {typeSelected.title && selectDate && <h1 style={{width:'90%',marginLeft:'5%'}}>Selecione um horário disponível para a data selecionada</h1>}
+     {typeSelected.title && selectDate &&  
      <div className="list-container">
        <div className="list-hours">
        { hoursSelected.map((el) => {

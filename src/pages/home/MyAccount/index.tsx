@@ -12,6 +12,9 @@ import clock from '../../../assets/clock.png'
 import ModalHoliday from './components/modal-holiday';
 import ModalConfirm from './components/modal-confirm';
 
+
+moment.locale('pt-br');
+
 interface IProps {
   changeMenu: (menu) => void
 }

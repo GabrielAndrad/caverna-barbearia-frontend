@@ -12,7 +12,7 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
   const {getHours} = store()
   const Data = new Date()
   Data.setDate(Data.getDate() + (new Date().getDay()+1))
-  const [value, onChange] = useState((new Date().getDay() === 0 || new Date().getDay() === 1)?  Data:new Date());
+  const [value, onChange] = useState();
   const onChangeValue = (event) => {
     onChange(event)
     getHours(event)
