@@ -22,6 +22,7 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
 
   const dateF = new Date()
   const dateD = new Date()
+  console.log(value)
   return (
     <div className = "data-container">
       <Calendar 
@@ -30,7 +31,7 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
         minDate={new Date()} 
         maxDate={new Date(dateD.setDate(dateF.getDate() + 30))}
         locale={'pt-BR'}
-        tileDisabled={(date) =>date.date.getDay() === 0 || date.date.getDay() === 1 }
+        tileDisabled={(date) =>date.date.getDay() === 0 || date.date.getDay() === 1 || (date.date.getMonth() === 11 && date.date.getDate() >10 ) }
       />
     </div>
   );
