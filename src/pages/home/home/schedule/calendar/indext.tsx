@@ -34,6 +34,7 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
         tileDisabled={(date) =>date.date.getDay() === 0 || date.date.getDay() === 1 || (date.date.getMonth() === 11 && date.date.getDate() >10 ) }
       />
     </div>
+    
   );
 }
 
