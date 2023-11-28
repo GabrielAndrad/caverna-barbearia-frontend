@@ -7,6 +7,9 @@ import Footer from '../../../components/Footer'
 import Schedule from './schedule'
 import store from '../../../store/home-store'
 import CarrouselComponent from './carrousel'
+import CountdownTimer from '../../Cronometro'
+import sinoa from '../../../assets/sinoa.png'
+import topnatal from '../../../assets/topo.png'
 
 interface IProps {
   changeMenu: (menu) => void
@@ -19,6 +22,9 @@ const Home:React.FunctionComponent<IProps> = ({
   return (
     <div>
       <section className="background"> 
+      <img className='topo' src={topnatal} alt=""/>
+      <img className='sinoleft' src={sinoa} alt=""/>
+      <img className='sinoright'src={sinoa} alt=""/>
         <img className="background" src={background} alt=""/>
         <img className = "logo" src={logo} alt=""/>
       </section>
@@ -28,6 +34,7 @@ const Home:React.FunctionComponent<IProps> = ({
         <button onClick={() => setShowSchedule(true)}>AGENDAR HORÁRIO</button>
       </section>
       <section>
+        <CountdownTimer/>
       {!showSchedule && <CarrouselComponent/>}
       {!showSchedule && <Maps/>}
 

@@ -1,0 +1,109 @@
+.cronometro {
+    display: flex;
+    width:85%;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  @keyframes blink {
+    0% { opacity: 0; } /* Inicialmente visível */
+    50% { opacity: 1; } /* Meio da animação - invisível */
+    100% { opacity: 0; } /* Fim da animação - visível */
+  }
+  @keyframes blink-border {
+    0% {
+      border-color: #ff0000; /* Cor inicial da borda */
+    }
+    50% {
+      border-color: #ffffff; /* Cor intermediária da borda */
+    }
+    100% {
+      border-color: #ff0000; /* Cor final da borda */
+    }
+  }
+  .texto-piscante {
+    animation: blink 1s infinite; /* A animação vai durar 1 segundo e se repetirá infinitamente */
+  }
+  .font{
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .cronometrocontainer{
+    background: linear-gradient(45deg, #ff0202, #ff2424,#ff0000);
+    color: #fff;
+    height:25vh;
+    scale:(0.9);
+    border-radius:50px;
+    font-weight: bold;
+    padding:5;
+    border:3px solid rgb(255, 255, 255);
+    display:flex;
+    animation: blink-border 1s infinite;
+    justify-content:space-evenly;
+    align-items:center;
+    flex-direction:column
+  }
+  .cronometrocontainerzero{
+    background: linear-gradient(45deg, #ff0202, #ff2424,#ff0000);
+    color: #fff;
+    height:20vh;
+    padding:5;
+    border:2px solid rgb(255, 255, 255);
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
+    flex-direction:column
+  }
+  .item {
+    text-align: center;
+  }
+  
+  .circulo {
+    display: flex;
+    padding:10;
+    justify-content: center;
+    align-items: center;
+    width: 63px;
+    height: 63px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-bottom: 10px;
+  }
+  
+  .numero {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  .nome {
+    font-size: em;
+    color: #fff;
+  }
+  
+@media screen and (min-width: 900px) {
+    .cronometrocontainer{
+        background: linear-gradient(45deg, #ff0202, #ff2424,#ff0000);
+        color: #fff;
+        height:35vh;
+        padding:5;
+        display:flex;
+        justify-content:space-evenly;
+        align-items:center;
+        flex-direction:column
+      }
+    .cronometro {
+        display: flex;
+        width:40%;
+        justify-content: space-evenly;
+        align-items: center;
+        font-family: Arial, sans-serif;
+      }
+      
+
+  }
+  @media screen and (max-width: 400px) {
+    .font{
+        font-size: 14px;
+      }
+      
+  }
