@@ -44,7 +44,7 @@ if(timeRemaining.days===0 && timeRemaining.hours===0 && timeRemaining.minutes===
     <div style={{width:'100%',background:'#000',marginTop:-30,paddingBottom:20}}>
     <div className='cronometrocontainer'>
       <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'space-around'}}>
-        <span  style={{marginTop:10}} className='font'>AGENDA DE NATAL:</span>
+        <span  style={{marginTop:10}} className='font'>AGENDA DE NATAL E ANO NOVO:</span>
         <h1 className='texto-piscante' style={{margin:10,fontSize:40}}>LIBERADA!!</h1>
     </div>
     </div>
@@ -57,7 +57,7 @@ if(timeRemaining.days===0 && timeRemaining.hours===0 && timeRemaining.minutes===
       <div className='cronometrocontainer'>
         <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'space-around'}}>
           <span className='texto-piscante' style={{fontSize:30}}>ATENÇÃO!!</span>
-          <span  style={{marginTop:10}} className='font'>AGENDA DE NATAL LIBERADA A PARTIR DE:</span>
+          <span  style={{marginTop:10,textAlign:'center'}} className='font'>AGENDA DE NATAL E ANO NOVO LIBERADA A PARTIR DE:</span>
       </div>
       <div className="cronometro">
         <div className="item">
