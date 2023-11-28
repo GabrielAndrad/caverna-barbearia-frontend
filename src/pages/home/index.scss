@@ -79,8 +79,22 @@
   button:hover {
     opacity: 1;
   }
+} 
+
+@media screen and (min-width:900px){
+  .sinoright{
+    display: none;
+  }
+  .sinoleft{
+    display: none;
+   
+  }
+  .topo{
+    display: none;
+  }
 }
-@media screen and (max-width: 900px) {
+
+@media screen and (max-width: 1000px) {
   .sinoright{
     width:30%;
     top: 17px;
