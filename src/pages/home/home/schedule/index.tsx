@@ -201,7 +201,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
   }
 
   return(
-    <div className="schedule">
+    <div style={{zIndex:600}} className="schedule">
         <ToastContainer/>
         <span className="icon-close" onClick={() => setShowSchedule(false)}>x</span>
         <span 
