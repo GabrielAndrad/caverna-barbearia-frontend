@@ -31,7 +31,7 @@ const Home:React.FunctionComponent<IProps> = ({
       <section className="schedule-time">
         <span className="title">CAVERNA BARBEARIA</span>
         <span className = "sub-title">AGENDE SEU HORÁRIO AQUI</span>
-        <button onClick={() => setShowSchedule(true)} disabled={true}>AGENDAR HORÁRIO</button>
+        <button onClick={() => setShowSchedule(true)}>AGENDAR HORÁRIO</button>
       </section>
       <section>
         <CountdownTimer/>
