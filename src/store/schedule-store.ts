@@ -50,8 +50,8 @@ const store = create<initialData>((set) => ({
       set((state) => ({
         ...state,
         hoursSelected: response.map((el) => {
-          if(user.getMonth() == 11 &&(user.getDate() >=12 && user.getDate() <=29) ){
-            if(el.value != "09:00:00"){
+          if(user.getMonth() === 11 &&(user.getDate() >=12 && user.getDate() <=29) ){
+            if(el.value !== "09:00:00"){
               el.disabled = false
             }
           }
