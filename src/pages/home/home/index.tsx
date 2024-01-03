@@ -7,9 +7,7 @@ import Footer from '../../../components/Footer'
 import Schedule from './schedule'
 import store from '../../../store/home-store'
 import CarrouselComponent from './carrousel'
-import CountdownTimer from '../../Cronometro'
-import sinoa from '../../../assets/sinoa.png'
-import topnatal from '../../../assets/topo.png'
+
 
 interface IProps {
   changeMenu: (menu) => void
