@@ -311,7 +311,7 @@ const Schedule:React.FunctionComponent<IProps> = ({
             </span>
           {scheduleSelected && 
           <div className="line-button">
-            <button className="save-schedule" onClick={() =>saveSchedule()}>
+            <button disabled={isLoading} className="save-schedule" onClick={() =>saveSchedule()}>
              {isLoading && <LoadingSpinner/>} Salvar Agendamento
               </button>
           </div>
