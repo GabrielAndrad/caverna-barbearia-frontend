@@ -25,7 +25,6 @@ const MyAccount: React.FunctionComponent<IProps> = ({
   data.setDate(data.getDate() + 7)
   const {
     showSchedule,
-    getSchedulesByUser,
     isLoading,
     schedules,
     setPhoneSelected,
@@ -61,6 +60,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
   }
 
   const texto = 'Olá, esqueci meu id de agendamento pode me ajudar?'
+  
   return (
     <div className={showSchedule ? 'card-schedule' : 'card-schedule-flex'}>
       {showSchedule && (
@@ -137,7 +137,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
           <div className="line-button-acc">
 
             <button className="save-schedule-acc save-schedule" onClick={() => {
-              getSchedulesByUser(phoneSelected)
+              getSchedulesFilter(filter,phoneSelected)
               if (phoneSelected === '12345678910') getInfos(filter)
             }}>Buscar agendamentos</button>
 
