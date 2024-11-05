@@ -40,17 +40,17 @@ const Schedule:React.FunctionComponent<IProps> = ({
   const scheduleTypes = [{
     id:1,
     title:'Degradê (1 hora)',
-    value:'R$ 30.00',
+    value:'R$ 35.00',
     time:2
   },{
     id:2,
     title:'Tradicional (30 min)',
-    value:'R$ 25.00',
+    value:'R$ 30.00',
     time:1 
   },{
     id:3,
     title:'Barba (30 min)',
-    value:'R$ 25.00',
+    value:'R$ 30.00',
     time:1
   },{
     id:4,
@@ -60,12 +60,12 @@ const Schedule:React.FunctionComponent<IProps> = ({
   },{
     id:5,
     title:'Degradê + Barba (1 hora)',
-    value:'R$ 50.00',
+    value:'R$ 60.00',
     time:2
   },{
     id:6,
     title:'Tradicional + Barba (1 hora)',
-    value:'R$ 50.00',
+    value:'R$ 60.00',
     time:2
   }]
 
