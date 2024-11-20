@@ -345,7 +345,6 @@ const Schedule:React.FunctionComponent<IProps> = ({
                 post(`https://hook.us1.make.com/wkwqejgw51h3j4u3d3ec8cm7yrybbacs`,{
                      phone:scheduleSelected.user.phone
                    }).subscribe((response) => {
-                    console.log(response)
                     if(response){
                       nextStep('review')
                     } else {
