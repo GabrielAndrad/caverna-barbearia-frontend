@@ -7,8 +7,9 @@ import Footer from '../../../components/Footer'
 import Schedule from './schedule'
 import store from '../../../store/home-store'
 import CarrouselComponent from './carrousel'
-
-
+import CountdownTimer from '../../Cronometro'
+// import topnatal from '../../../assets/bordanatal.png'
+// import sinoa from '../../../assets/sinoa.png'
 interface IProps {
   changeMenu: (menu) => void
 }
@@ -32,7 +33,7 @@ const Home:React.FunctionComponent<IProps> = ({
         <button onClick={() => setShowSchedule(true)}>AGENDAR HORÁRIO</button>
       </section>
       <section>
-        {/* <CountdownTimer/> */}
+        <CountdownTimer/>
       {!showSchedule && <CarrouselComponent/>}
       {!showSchedule && <Maps/>}
 
