@@ -242,10 +242,10 @@ const Schedule:React.FunctionComponent<IProps> = ({
        <div className="list-hours">
        { hoursSelected.map((el) => {
         const index = hoursSelected.map(hour => hour.value).indexOf(el.value)
+          console.log(el.disabled,index,typeSelected,scheduleSelected,hoursSelected) 
           return (
             <div 
              onClick={(event) => {
-              console.log(selectDate,el.value);
               !el.disabled && !(typeSelected.time === 2 && (hoursSelected[index+1]?hoursSelected[index+1].disabled:true))?handleSelectHours(el):
               toast.error('Este horário não está disponivel no momento!', {
                 position: "bottom-right",
@@ -261,13 +261,23 @@ const Schedule:React.FunctionComponent<IProps> = ({
              className = "list-hours-items"
              style={{
                backgroundColor:
-              typeSelected.time === 2?
-              (el.disabled)?'#000':el.value === scheduleSelected?.hour?'#1087ff':(hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?
-               '#000':el.value === scheduleSelected?.hour?'#1087ff':'#fff': (el.disabled)?'#000':el.value === scheduleSelected?.hour?'#1087ff':'#fff',
+               typeSelected.time === 2?
+               el.disabled?
+               '#000':
+               el.value === scheduleSelected?.hour?
+               '#1087ff':
+               (hoursSelected[index+1]?hoursSelected[index+1].disabled
+                :true)?
+               '#000':
+               el.value === scheduleSelected?.hour?
+               '#1087ff':
+               '#fff': 
+               el.disabled?'#000'
+               :el.value === scheduleSelected?.hour?'#1087ff':'#fff',
                color:
                typeSelected.time === 2?
-               (el.disabled)?'#fff':el.value === scheduleSelected?.hour?'#fff': (hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?
-               '#fff':el.value === scheduleSelected?.hour?'#fff':'#000': (el.disabled)?'#fff':el.value === scheduleSelected?.hour?'#fff':'#000'
+               el.disabled?'#fff':el.value === scheduleSelected?.hour?'#fff': (hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?
+               '#fff':el.value === scheduleSelected?.hour?'#fff':'#000': el.disabled?'#fff':el.value === scheduleSelected?.hour?'#fff':'#000'
                }} key = {el.value}>
             {!isLoading &&<span>{el.value.replace(':00','')}</span> }
             </div>
