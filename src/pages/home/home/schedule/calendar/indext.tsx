@@ -32,7 +32,7 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
         locale={'pt-BR'}
         tileDisabled={(date) => (
           date.date.getDate() === 23 || date.date.getDate() === 22 || date.date.getDate() === 24 || date.date.getDate() === 29?false:
-          (date.date.getDay() === 0) || date.date.getDay() === 1 || date.date.getDate() === 1
+          (date.date.getDay() === 0) || date.date.getDay() === 1 || date.date.getDate() === 1 || date.date.getDate() === 31
           // (date.date.getMonth() === 11 && (date.date.getDate() >= 15 && date.date.getDate() <= 31))
         )
             
