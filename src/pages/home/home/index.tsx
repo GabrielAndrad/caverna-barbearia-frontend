@@ -7,7 +7,7 @@ import Footer from '../../../components/Footer'
 import Schedule from './schedule'
 import store from '../../../store/home-store'
 import CarrouselComponent from './carrousel'
-import CountdownTimer from '../../Cronometro'
+// import CountdownTimer from '../../Cronometro'
 // import topnatal from '../../../assets/bordanatal.png'
 // import sinoa from '../../../assets/sinoa.png'
 interface IProps {
