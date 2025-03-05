@@ -33,7 +33,7 @@ const Home:React.FunctionComponent<IProps> = ({
         <button onClick={() => setShowSchedule(true)}>AGENDAR HORÁRIO</button>
       </section>
       <section>
-        <CountdownTimer/>
+        {/* <CountdownTimer/> */}
       {!showSchedule && <CarrouselComponent/>}
       {!showSchedule && <Maps/>}
 
