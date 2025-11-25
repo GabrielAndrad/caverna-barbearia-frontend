@@ -24,12 +24,12 @@ const Home:React.FunctionComponent<IProps> = ({
   return (
     <div>
       <section className="background"> 
-      {/* /* <img className='topo' src={topnatal} alt=""/> */}
-      {/* <img className='sinoleft' src={sinoa} alt=""/>
-      <img className='sinoright'src={sinoa} alt=""/> */}
+        {/* <img className='topo' src={topnatal} alt=""/> */}
+        {/* <img className='sinoleft' src={sinoa} alt=""/> */}
+        {/* <img className='sinoright'src={sinoa} alt=""/> */}
 
         <img className="background" src={background} alt=""/>
-        /* <img className = "logo" src={logo} alt=""/> 
+        <img className = "logo" src={logo} alt=""/> 
         {/* <img className = "logo-natal" src={logoNatal} alt=""/> */}
       </section>
       <section className="schedule-time">
