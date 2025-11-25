@@ -11,7 +11,7 @@ import store from '../../../store/home-store'
 import CarrouselComponent from './carrousel'
 // import CountdownTimer from '../../Cronometro'
 // import topnatal from '../../../assets/bordanatal.png'
-import sinoa from '../../../assets/sinoa.png'
+// import sinoa from '../../../assets/sinoa.png'
 
 interface IProps {
   changeMenu: (menu) => void
