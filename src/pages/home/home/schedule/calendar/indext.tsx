@@ -30,14 +30,21 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
         minDate={new Date()} 
         maxDate={new Date(dateD.setDate(dateF.getDate() + 30))}
         locale={'pt-BR'}
-        tileDisabled={(date) => (
-          // date.date.getDate() === 23 || date.date.getDate() === 22 || date.date.getDate() === 24 || date.date.getDate() === 29?false:
-          (date.date.getDay() === 0) || date.date.getDay() === 1
-          // (date.date.getMonth() === 11 && (date.date.getDate() >= 15 && date.date.getDate() <= 31))
-        )
-            
-      
-        }
+        tileDisabled={({ date }) => {
+          const isSundayOrMonday = date.getDay() === 0 || date.getDay() === 1;
+
+          const isDec2025Closed =
+            date.getFullYear() === 2025 &&
+            date.getMonth() === 11 &&
+            [25, 31].includes(date.getDate());
+
+          const isJan2026Closed =
+            date.getFullYear() === 2026 &&
+            date.getMonth() === 0 &&
+            [1, 2, 3, 4, 5, 6].includes(date.getDate());
+
+          return isSundayOrMonday || isDec2025Closed || isJan2026Closed;
+        }}
       />
     </div>
     
