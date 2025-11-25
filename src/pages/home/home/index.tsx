@@ -1,6 +1,6 @@
 import React from 'react'
-// import background from '../../../assets/background-barbearia.jpeg'
-import background from '../../../assets/background-natal.jpeg'
+import background from '../../../assets/background-barbearia.jpeg'
+// import background from '../../../assets/background-natal.jpeg'
 import logo from '../../../assets/logo.png'
 // import logoNatal from '../../../assets/NatalLogo.png'
 import '../index.scss'
