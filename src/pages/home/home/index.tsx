@@ -1,8 +1,8 @@
 import React from 'react'
-import background from '../../../assets/background-barbearia.jpeg'
-// import background from '../../../assets/background-natal.jpeg'
-import logo from '../../../assets/logo.png'
-// import logoNatal from '../../../assets/NatalLogo.png'
+// import background from '../../../assets/background-barbearia.jpeg'
+import background from '../../../assets/background-natal.jpeg'
+// import logo from '../../../assets/logo.png'
+import logoNatal from '../../../assets/NatalLogo.png'
 import '../index.scss'
 import Maps from './maps'
 import Footer from '../../../components/Footer'
@@ -29,8 +29,8 @@ const Home:React.FunctionComponent<IProps> = ({
         {/* <img className='sinoright'src={sinoa} alt=""/> */}
 
         <img className="background" src={background} alt=""/>
-        <img className = "logo" src={logo} alt=""/> 
-        {/* <img className = "logo-natal" src={logoNatal} alt=""/> */}
+        {/* <img className = "logo" src={logo} alt=""/>  */}
+        <img className = "logo-natal" src={logoNatal} alt=""/>
       </section>
       <section className="schedule-time">
         <span className="title">CAVERNA BARBEARIA</span>
