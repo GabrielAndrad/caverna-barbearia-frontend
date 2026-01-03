@@ -25,7 +25,6 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
 
   // Ajuste do período máximo de agendamento para cobrir
   // o cronograma especial de dez/2025 e jan/2026.
-  const today = new Date()
   const defaultMaxDate = new Date(dateD.setDate(dateF.getDate() + 30))
   const specialMaxDate = new Date(2026, 0, 6) // 06/01/2026
   // Importante: não podemos "encurtar" o período máximo quando estivermos em jan/2026,
