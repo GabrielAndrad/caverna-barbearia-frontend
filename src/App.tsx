@@ -3,7 +3,7 @@
 import React, { Component, Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import LoadingSpinner from './components/Spinner';
-import Snowflakes from './components/Snowflakes';
+// import Snowflakes from './components/Snowflakes';
 
 
 const Router = React.lazy(() => import('./Router'));
