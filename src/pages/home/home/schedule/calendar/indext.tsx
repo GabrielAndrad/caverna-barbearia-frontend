@@ -26,9 +26,9 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
   // Ajuste do período máximo de agendamento para cobrir
   // o cronograma especial de dez/2025 e jan/2026.
   const defaultMaxDate = new Date(dateD.setDate(dateF.getDate() + 30))
-  const specialMaxDate = new Date(2026, 0, 6) // 06/01/2026
+  const specialMaxDate = new Date(2026, 0, 12) // 12/01/2026
   // Importante: não podemos "encurtar" o período máximo quando estivermos em jan/2026,
-  // senão ficamos sem dias selecionáveis (01-06/01 está fechado).
+  // senão ficamos sem dias selecionáveis (01-12/01 está fechado).
   // Então usamos sempre o MAIOR entre o limite padrão (hoje + 30 dias) e a data especial.
   const maxDate = defaultMaxDate > specialMaxDate ? defaultMaxDate : specialMaxDate
 
@@ -65,11 +65,11 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
 
           // Regras especiais para JANEIRO/2026
           if (isJan2026) {
-            // Fechado de 01/01 a 06/01
-            if (day >= 1 && day <= 6) {
+            // Fechado de 01/01 a 12/01
+            if (day >= 1 && day <= 12) {
               return true;
             }
-            // A partir de 07/01 segue a regra padrão.
+            // A partir de 13/01 segue a regra padrão.
           }
 
           // Regra padrão: domingo e segunda fechados
