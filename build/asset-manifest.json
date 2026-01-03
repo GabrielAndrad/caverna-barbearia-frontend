@@ -1,30 +1,37 @@
 {
   "files": {
-    "main.css": "/static/css/main.ec9b3843.css",
-    "main.js": "/static/js/main.54fcf943.js",
-    "static/css/102.fba05f75.chunk.css": "/static/css/102.fba05f75.chunk.css",
-    "static/js/102.445620f3.chunk.js": "/static/js/102.445620f3.chunk.js",
-    "static/js/234.3751b193.chunk.js": "/static/js/234.3751b193.chunk.js",
+    "main.css": "/static/css/main.24af8f1f.css",
+    "main.js": "/static/js/main.a4387416.js",
+    "static/css/299.6d5b5cd3.chunk.css": "/static/css/299.6d5b5cd3.chunk.css",
+    "static/js/299.ae31eb8e.chunk.js": "/static/js/299.ae31eb8e.chunk.js",
+    "static/css/520.d4437dc5.chunk.css": "/static/css/520.d4437dc5.chunk.css",
+    "static/js/520.fb60c1f9.chunk.js": "/static/js/520.fb60c1f9.chunk.js",
     "static/media/logo.png": "/static/media/logo.7a38c53ab23dd6839fe5.png",
     "static/media/background-barbearia.jpeg": "/static/media/background-barbearia.6da94d7b517924a8d828.jpeg",
     "static/media/Poppins-Regular.ttf": "/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
+    "static/media/corte-3.jpeg": "/static/media/corte-3.192cdccb391fac937953.jpeg",
     "static/media/Poppins-Black.ttf": "/static/media/Poppins-Black.d8b850b920a5ef49d752.ttf",
     "static/media/Young Heart.ttf": "/static/media/Young Heart.7d77a992d272487c7488.ttf",
+    "static/media/corte-1.jpeg": "/static/media/corte-1.d9c10bfebf70f5e031f7.jpeg",
+    "static/media/corte-4.jpeg": "/static/media/corte-4.9c9875cd98ad51ae4cf8.jpeg",
+    "static/media/corte-2.jpeg": "/static/media/corte-2.1f4a4df22a67aeabd384.jpeg",
+    "static/media/sinuca.jpeg": "/static/media/sinuca.6cc7cc294f811d2562f1.jpeg",
     "static/media/whats.png": "/static/media/whats.760fc32b2e6211d2ed72.png",
-    "static/media/tijolo.jpeg": "/static/media/tijolo.524bcd1158ab90c01e62.jpeg",
     "static/media/instagram.png": "/static/media/instagram.df8c6c0fca1b31c757ac.png",
     "static/media/facebook.png": "/static/media/facebook.a5b07f7990f6b0497177.png",
-    "static/media/return.svg": "/static/media/return.9317f589311cd1c7756b80338b43cfc6.svg",
     "index.html": "/index.html",
+    "static/media/return.svg": "/static/media/return.cd727cb05083bfd1a9bdd07f60b7eb1a.svg",
+    "static/media/cancel-icon.svg": "/static/media/cancel-icon.8d381f45942fde15e64e49089cce3f17.svg",
     "static/media/user.svg": "/static/media/user.b364914429e9f3d0fb856277c1bfdf29.svg",
-    "main.ec9b3843.css.map": "/static/css/main.ec9b3843.css.map",
-    "main.54fcf943.js.map": "/static/js/main.54fcf943.js.map",
-    "102.fba05f75.chunk.css.map": "/static/css/102.fba05f75.chunk.css.map",
-    "102.445620f3.chunk.js.map": "/static/js/102.445620f3.chunk.js.map",
-    "234.3751b193.chunk.js.map": "/static/js/234.3751b193.chunk.js.map"
+    "main.24af8f1f.css.map": "/static/css/main.24af8f1f.css.map",
+    "main.a4387416.js.map": "/static/js/main.a4387416.js.map",
+    "299.6d5b5cd3.chunk.css.map": "/static/css/299.6d5b5cd3.chunk.css.map",
+    "299.ae31eb8e.chunk.js.map": "/static/js/299.ae31eb8e.chunk.js.map",
+    "520.d4437dc5.chunk.css.map": "/static/css/520.d4437dc5.chunk.css.map",
+    "520.fb60c1f9.chunk.js.map": "/static/js/520.fb60c1f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ec9b3843.css",
-    "static/js/main.54fcf943.js"
+    "static/css/main.24af8f1f.css",
+    "static/js/main.a4387416.js"
   ]
 }
