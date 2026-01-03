@@ -28,10 +28,10 @@ const CalendarDate:React.FunctionComponent<Iprops> =({
   const today = new Date()
   const defaultMaxDate = new Date(dateD.setDate(dateF.getDate() + 30))
   const specialMaxDate = new Date(2026, 0, 6) // 06/01/2026
-  const maxDate =
-    today <= specialMaxDate
-      ? specialMaxDate
-      : defaultMaxDate
+  // Importante: não podemos "encurtar" o período máximo quando estivermos em jan/2026,
+  // senão ficamos sem dias selecionáveis (01-06/01 está fechado).
+  // Então usamos sempre o MAIOR entre o limite padrão (hoje + 30 dias) e a data especial.
+  const maxDate = defaultMaxDate > specialMaxDate ? defaultMaxDate : specialMaxDate
 
   return (
     <div className = "data-container">
