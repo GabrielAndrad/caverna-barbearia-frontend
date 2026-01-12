@@ -38,35 +38,60 @@ const Schedule:React.FunctionComponent<IProps> = ({
   const [modalEnd,openModalEnd]= useState('')
 
   const scheduleTypes = [{
-    id:1,
-    title:'Degradê (1 hora)',
-    value:'R$ 35.00',
-    time:2
-  },{
-    id:2,
-    title:'Tradicional (30 min)',
-    value:'R$ 30.00',
-    time:1 
-  },{
-    id:3,
-    title:'Barba (30 min)',
-    value:'R$ 30.00',
-    time:1
-  },{
-    id:4,
-    title:'Pezinho (30 min)',
-    value:'R$ 15.00',
-    time:1
-  },{
-    id:5,
-    title:'Degradê + Barba (1 hora)',
-    value:'R$ 60.00',
-    time:2
-  },{
-    id:6,
-    title:'Tradicional + Barba (1 hora)',
-    value:'R$ 60.00',
-    time:2
+    id: 1,
+    title: 'Degradê (1 hora)',
+    value: 'R$ 40,00',
+    time: 2
+  }, {
+    id: 2,
+    title: 'Degradê e sobrancelha (1 hora)',
+    value: 'R$ 45,00',
+    time: 2
+  }, {
+    id: 3,
+    title: 'Tradicional (30 minutos)',
+    value: 'R$ 35,00',
+    time: 1
+  }, {
+    id: 4,
+    title: 'Tradicional e sobrancelha (30 minutos)',
+    value: 'R$ 40,00',
+    time: 1
+  }, {
+    id: 5,
+    title: 'Barba (30 minutos)',
+    value: 'R$ 35,00',
+    time: 1
+  }, {
+    id: 6,
+    title: 'Barba (com vapor de ozônio) (30 minutos)',
+    value: 'R$ 45,00',
+    time: 1
+  }, {
+    id: 7,
+    title: 'Cabelo e barba (1 hora)',
+    value: 'R$ 70,00',
+    time: 2
+  }, {
+    id: 8,
+    title: 'Cabelo, barba e sobrancelha (1 hora)',
+    value: 'R$ 75,00',
+    time: 2
+  }, {
+    id: 9,
+    title: 'Cabelo, barba e sobrancelha (com vapor de ozônio) (1 hora)',
+    value: 'R$ 85,00',
+    time: 2
+  }, {
+    id: 10,
+    title: 'Sobrancelha (na Gillette) (30 minutos)',
+    value: 'R$ 10,00',
+    time: 1
+  }, {
+    id: 11,
+    title: 'Pezinho (30 minutos)',
+    value: 'R$ 15,00',
+    time: 1
   }]
 
   const handleTypes = (item) => {
