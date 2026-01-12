@@ -38,6 +38,51 @@
   border: 5px solid #D95023;
 }
 
+.logo-natal {
+  width: 27vh;
+  height: 27vh;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom:-10vh;
+}
+
+.snowflakes-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10%;
+  color: #fff;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(0) translateZ(0);
+  }
+
+  100% {
+    transform: translateY(110vh) translateZ(0);
+  }
+}
+
 .schedule-time {
   width: 100%;
   height: 50vh;
@@ -62,18 +107,62 @@
   }
 
   button {
-    font-family: 'poppins';
     background-color: #d95023;
-    color:#fff;
+    font-family: "poppins";
+    color: #fff;
+    // background: linear-gradient(45deg, #b30e0e, #ff0808);
     border-radius: 12px;
     width: 12vw;
+    // border: 3px solid #d9b64e;
     height: 5vh;
     margin-top: 5vh;
     font-weight: 800;
     font-size: 1vw;
-    border:none;
+    border: none;
     opacity: 0.8;
     cursor: pointer;
+    position: relative;
+
+  //   &::before {
+  //     content: '';
+  //     position: absolute;
+  //     top: -10px;
+  //     left: 0;
+  //     right: 0;
+  //     height: 18px;
+  //     background: linear-gradient(to bottom, 
+  //       rgba(255, 255, 255, 0.95) 0%,
+  //       rgba(255, 255, 255, 0.88) 35%,
+  //       rgba(240, 248, 255, 0.7) 65%,
+  //       transparent 100%
+  //     );
+  //     border-radius: 50% 50% 40% 40% / 100% 100% 30% 30%;
+  //     box-shadow: 
+  //       0 2px 4px rgba(255, 255, 255, 0.5),
+  //       inset 0 1px 2px rgba(255, 255, 255, 0.8),
+  //       inset 0 -2px 4px rgba(200, 220, 255, 0.3);
+  //     z-index: 1;
+  //     pointer-events: none;
+  //   }
+
+  //   &::after {
+  //     content: '';
+  //     position: absolute;
+  //     top: -8px;
+  //     left: 15%;
+  //     right: 15%;
+  //     height: 10px;
+  //     background: radial-gradient(ellipse at center, 
+  //       rgba(255, 255, 255, 0.95) 0%,
+  //       rgba(255, 255, 255, 0.6) 50%,
+  //       transparent 80%
+  //     );
+  //     border-radius: 50%;
+  //     filter: blur(1.5px);
+  //     z-index: 2;
+  //     pointer-events: none;
+  //   }
+  // }
   }
 
   button:hover {
@@ -122,8 +211,8 @@
   }
 
   .logo {
-    width: 40%;
-    height: 150px;
+    width: 18vh;
+    height: 18vh;
     bottom:-60px;
   }
 

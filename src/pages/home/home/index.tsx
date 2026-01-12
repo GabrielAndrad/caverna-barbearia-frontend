@@ -1,6 +1,8 @@
 import React from 'react'
 import background from '../../../assets/background-barbearia.jpeg'
+// import background from '../../../assets/background-natal.jpeg'
 import logo from '../../../assets/logo.png'
+// import logoNatal from '../../../assets/NatalLogo.png'
 import '../index.scss'
 import Maps from './maps'
 import Footer from '../../../components/Footer'
@@ -10,6 +12,7 @@ import CarrouselComponent from './carrousel'
 // import CountdownTimer from '../../Cronometro'
 // import topnatal from '../../../assets/bordanatal.png'
 // import sinoa from '../../../assets/sinoa.png'
+
 interface IProps {
   changeMenu: (menu) => void
 }
@@ -21,11 +24,13 @@ const Home:React.FunctionComponent<IProps> = ({
   return (
     <div>
       <section className="background"> 
-      {/* <img className='topo' src={topnatal} alt=""/>
-      <img className='sinoleft' src={sinoa} alt=""/>
-      <img className='sinoright'src={sinoa} alt=""/> */}
+        {/* <img className='topo' src={topnatal} alt=""/> */}
+        {/* <img className='sinoleft' src={sinoa} alt=""/> */}
+        {/* <img className='sinoright'src={sinoa} alt=""/> */}
+
         <img className="background" src={background} alt=""/>
-        <img className = "logo" src={logo} alt=""/>
+        <img className = "logo" src={logo} alt=""/> 
+        {/* <img className = "logo-natal" src={logoNatal} alt=""/> */}
       </section>
       <section className="schedule-time">
         <span className="title">CAVERNA BARBEARIA</span>
