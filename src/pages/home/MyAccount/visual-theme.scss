@@ -1,0 +1,204 @@
+.card-schedule,
+.card-schedule-flex {
+  width: 100%;
+  min-height: 100%;
+  background: linear-gradient(to bottom, #000 0%, #000 38%, #3f1503 74%, #f9530b 100%);
+  color: var(--white);
+  padding: 1.25rem 1rem 2rem;
+  box-sizing: border-box;
+}
+
+.card-schedule-flex {
+  display: flex;
+  justify-content: center;
+  padding-top: 8%;
+}
+
+.form-user-acc {
+  width: min(100%, 24rem);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: none;
+  background: transparent;
+}
+
+.form-user-acc h1 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.line-button-acc,
+.form-user-acc .line-button-acc {
+  width: 100%;
+  margin: 0 0 0.75rem;
+  display: flex;
+  justify-content: center;
+}
+
+.input-text-acc,
+.form-user-acc .input-text-acc {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+  background: #121212;
+  color: var(--white);
+  box-sizing: border-box;
+}
+
+.save-schedule-acc,
+.form-user-acc .save-schedule,
+.form-user-acc .save-schedule-acc {
+  width: 100%;
+  min-height: 3.1rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--white);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.forget-id {
+  color: var(--white);
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.75rem;
+}
+
+.title-line {
+  width: 100%;
+  color: var(--white);
+}
+
+.title-line h1,
+.title-line span {
+  color: var(--white);
+}
+
+.line-filter {
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.line-filter .input-text,
+.line-filter input {
+  background: #121212;
+  color: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.line-filter button {
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  border-radius: 999px;
+}
+
+.table-schedule {
+  width: 100%;
+  max-height: 65vh;
+}
+
+.table-schedule table,
+.card-schedule table {
+  color: var(--white);
+}
+
+.table-schedule th,
+.card-schedule th {
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.table-schedule td,
+.card-schedule td {
+  color: var(--white);
+  font-size: 0.78rem;
+}
+
+.mobile-table-content {
+  width: 100%;
+  background: transparent;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mobile-table-row {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.mobile-table-row span {
+  color: var(--white);
+  border-bottom-color: var(--line);
+}
+
+.modal-confirm {
+  background: var(--bg-card);
+  color: var(--white);
+  border: 1px solid var(--line);
+  width: min(22rem, calc(100% - 2rem));
+  height: auto;
+  min-height: 8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1.2rem;
+}
+
+.modal-confirm-buttons button {
+  color: var(--white);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  margin: 0 0.35rem;
+}
+
+.modal-confirm-range {
+  background: var(--bg-card);
+  color: var(--white);
+  border: 1px solid var(--line);
+  width: min(26rem, calc(100% - 2rem));
+  height: auto !important;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem;
+}
+
+@media screen and (max-width: 900px) {
+  .card-schedule-flex,
+  .card-schedule {
+    background: linear-gradient(to bottom, #000 0%, #000 38%, #3f1503 74%, #f9530b 100%);
+    padding: 1rem;
+  }
+
+  .form-user-acc {
+    width: 100%;
+  }
+
+  .line-filter {
+    height: auto !important;
+    min-height: 0 !important;
+    width: 100%;
+  }
+
+  .line-filter button {
+    min-width: 100%;
+  }
+
+  .modal-confirm,
+  .modal-confirm-range {
+    left: 50%;
+    width: min(22rem, calc(100% - 1.5rem));
+  }
+}

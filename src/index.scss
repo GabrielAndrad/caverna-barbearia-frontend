@@ -3,6 +3,13 @@
   src:url('./fonts/Young\ Heart.ttf')
 }
 
+@font-face {
+  font-family: 'Young Heart';
+  src: url('./fonts/Young Heart.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
 @font-face{
   font-family: 'poppins';
   src:url('./fonts/Poppins-Black.ttf')
@@ -17,19 +24,14 @@ button {
   cursor: pointer;
 }
 
-html, body {
+html, body, #root {
   max-width: 100%;
-  overflow-x: hidden;
+  min-height: 100%;
 }
 
-@media screen and (min-width: 320px) and (max-width: 900px) and (orientation: landscape) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
+body {
+  margin: 0;
+  background: #f9530b;
+  color: #fff;
+  font-family: 'Poppins', 'poppins-regular', system-ui, sans-serif;
 }

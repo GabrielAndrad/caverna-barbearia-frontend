@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import img from '../../../../assets/logo.png'
-import returnImage from '../../../../assets/icons/return.svg'
-import CalendarDate from './calendar/indext'
+import degradeIcon from '../../../../assets/visual/service-icons/degrade.png'
+import degradeBrowIcon from '../../../../assets/visual/service-icons/degrade-sobrancelha.png'
+import tradicionalIcon from '../../../../assets/visual/service-icons/tradicional.png'
+import tradicionalBrowIcon from '../../../../assets/visual/service-icons/tradicional-sobrancelha.png'
+import barbaIcon from '../../../../assets/visual/service-icons/barba.png'
+import barbaOzonioIcon from '../../../../assets/visual/service-icons/barba-ozonio.png'
+import cabeloBarbaIcon from '../../../../assets/visual/service-icons/cabelo-barba.png'
+import comboIcon from '../../../../assets/visual/service-icons/cabelo-barba-sobrancelha.png'
+import comboOzonioIcon from '../../../../assets/visual/service-icons/combo-ozonio.png'
+import sobrancelhaIcon from '../../../../assets/visual/service-icons/sobrancelha.png'
+import pezinhoIcon from '../../../../assets/visual/service-icons/pezinho.png'
 import storeSchedule from '../../../../store/schedule-store'
 import moment from 'moment'
 import LoadingSpinner from '../../../../components/Spinner'
 import storeHome from '../../../../store/home-store'
-import { saveScheduleApi } from '../../../../services/schedule-service'
+import { getHoursByDate, saveScheduleApi } from '../../../../services/schedule-service'
+import { isClosedBookingDate, listBookingDates } from './booking-dates'
 import '../../../../../node_modules/react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
@@ -36,6 +46,10 @@ const Schedule:React.FunctionComponent<IProps> = ({
   const [scheduleSelected,setScheduleSelected] = useState<any>({user:{name:'',phone:''}})
   const [steps,setStep] = useState<any>('infos') 
   const [modalEnd,openModalEnd]= useState('')
+  const [quickLoading, setQuickLoading] = useState(false)
+  const bookingDates = listBookingDates()
+  const dateCarouselRef = useRef<HTMLDivElement>(null)
+  const scrollDateRef = useRef(false)
 
   const scheduleTypes = [{
     id: 1,
@@ -94,6 +108,20 @@ const Schedule:React.FunctionComponent<IProps> = ({
     time: 1
   }]
 
+  const serviceIcons = {
+    1: degradeIcon,
+    2: degradeBrowIcon,
+    3: tradicionalIcon,
+    4: tradicionalBrowIcon,
+    5: barbaIcon,
+    6: barbaOzonioIcon,
+    7: cabeloBarbaIcon,
+    8: comboIcon,
+    9: comboOzonioIcon,
+    10: sobrancelhaIcon,
+    11: pezinhoIcon
+  }
+
   const handleTypes = (item) => {
     const Data = new Date()
     Data.setDate(Data.getDate() + (new Date().getDay()+1))
@@ -138,7 +166,80 @@ const Schedule:React.FunctionComponent<IProps> = ({
     }
   }
 
-  
+  const findQuickSlot = () => {
+    const dates = bookingDates.filter((date) => !isClosedBookingDate(date)).slice(0, 15)
+    setQuickLoading(true)
+
+    const search = (index) => {
+      if (index >= dates.length) {
+        setQuickLoading(false)
+        toast.error('Nenhum horário disponível no momento!', {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+        return
+      }
+
+      getHoursByDate(dates[index]).subscribe((response) => {
+        const hours = response || []
+        const found = hours.find((el, hourIndex) => {
+          const nextDisabled = hours[hourIndex + 1] ? hours[hourIndex + 1].disabled : true
+          if (typeSelected.time === 2) return !el.disabled && !nextDisabled
+          return !el.disabled
+        })
+
+        if (!found) {
+          search(index + 1)
+          return
+        }
+
+        scrollDateRef.current = true
+        onChangeSelectDate(dates[index])
+        getHours(dates[index])
+        setScheduleSelected({
+          typeCut: {
+            title: typeSelected.title,
+            price: typeSelected.value,
+            time: typeSelected.time,
+            id: typeSelected.id
+          },
+          dateRegister: moment(new Date()).format('DD/MM/YYYY'),
+          hour: found.value,
+          time: found.time,
+          date: dates[index],
+          user: { name: '', phone: '' }
+        })
+        setQuickLoading(false)
+      }, () => search(index + 1))
+    }
+
+    search(0)
+  }
+
+  useEffect(() => {
+    if (!scrollDateRef.current || !dateCarouselRef.current) return
+    const carousel = dateCarouselRef.current
+    const active = carousel.querySelector('.date-card.is-active') as HTMLElement | null
+    if (!active) return
+    scrollDateRef.current = false
+    const left = active.offsetLeft - (carousel.clientWidth - active.offsetWidth) / 2
+    carousel.scrollTo({ left: Math.max(0, left), behavior: 'smooth' })
+  }, [selectDate])
+
+  const handleBack = () => {
+    if (steps === 'infos' && !typeSelected.title) {
+      setShowSchedule(false)
+      return
+    }
+    returnStep()
+  }
+
   const nextStep = (step) => {
     setStep(step)
   }
@@ -226,161 +327,195 @@ const Schedule:React.FunctionComponent<IProps> = ({
     };
   }
 
-  return(
-    <div style={{zIndex:600}} className="schedule">
-        <ToastContainer/>
-        <span className="icon-close" onClick={() => setShowSchedule(false)}>x</span>
-        <span 
-        onClick={returnStep}
-        style={{position:'absolute',left:10,top:10,display:'flex',alignItems:'center',cursor:'pointer',paddingRight:'20px',paddingBottom:20,paddingTop:10,textAlign:'center'}}> 
-        <img alt = "" src={returnImage} style={{width:20,height:20}}/> 
-        Voltar
-        </span>
-      {steps === 'infos' && (
-        <div>
-        {!typeSelected.title ?<h1>Selecione o Serviço</h1>:<h1>Selecione uma data disponível</h1>}
-       {!typeSelected.title && <ul className="schedule-list">
-        {
-           scheduleTypes.map((item) => {
-             return(
-             <li  key = {item.id} onClick={() => handleTypes(item)} className="schedule-list-item" style={{justifyContent:'space-between'}}>
-             <div style={{display:'flex',alignItems:"center"}}>
-                <img src={img} alt=""/>
-               <span>{item.title}</span>
-              </div>
-               <span>{item.value}</span>
-              </li>
-             )
-           })
-        }
-     </ul>
-     }
-     {!typeSelected.title &&           
-     <span className="line-text">
-       Os tipos de serviços tem diferentes tempos estimados, portanto os horários disponíveis são alterados de acordo com o tempo do serviço.
-      </span>
-      }
-     {typeSelected.title && <CalendarDate selectDate = {(event) => onChangeSelectDate(event)}/>}
-     {typeSelected.title && selectDate && <h1 style={{width:'90%',marginLeft:'5%'}}>Selecione um horário disponível para a data selecionada</h1>}
-     {typeSelected.title && selectDate &&  
-     <div className="list-container">
-       <div className="list-hours">
-       { hoursSelected.map((el) => {
-        const index = hoursSelected.map(hour => hour.value).indexOf(el.value)
-          console.log(el.disabled,index,typeSelected,scheduleSelected,hoursSelected) 
-          return (
-            <div 
-             onClick={(event) => {
-              !el.disabled && !(typeSelected.time === 2 && (hoursSelected[index+1]?hoursSelected[index+1].disabled:true))?handleSelectHours(el):
-              toast.error('Este horário não está disponivel no momento!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                })
-             }}
-             className = "list-hours-items"
-             style={{
-               backgroundColor:
-               typeSelected.time === 2?
-               el.disabled?
-               '#000':
-               el.value === scheduleSelected?.hour?
-               '#1087ff':
-               (hoursSelected[index+1]?hoursSelected[index+1].disabled
-                :true)?
-               '#000':
-               el.value === scheduleSelected?.hour?
-               '#1087ff':
-               '#fff': 
-               el.disabled?'#000'
-               :el.value === scheduleSelected?.hour?'#1087ff':'#fff',
-               color:
-               typeSelected.time === 2?
-               el.disabled?'#fff':el.value === scheduleSelected?.hour?'#fff': (hoursSelected[index+1]?hoursSelected[index+1].disabled:true)?
-               '#fff':el.value === scheduleSelected?.hour?'#fff':'#000': el.disabled?'#fff':el.value === scheduleSelected?.hour?'#fff':'#000'
-               }} key = {el.value}>
-            {!isLoading &&<span>{el.value.replace(':00','')}</span> }
-            </div>
+  const backIcon = (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  )
 
-            
-           )
-         })
-         }
-         </div>
-     </div>
-     
-     }
-      {typeSelected.title && 
-          <div className="line-button">
-            <button disabled={handleDisabled('date')} className="save-schedule" onClick={() => {
+  const topbar = (title, onBack) => (
+    <header className="topbar">
+      <button type="button" className="icon-btn" aria-label="Voltar" onClick={onBack}>{backIcon}</button>
+      <h2 className="page-title">{title}</h2>
+      <span className="icon-btn" aria-hidden="true" />
+    </header>
+  )
+
+  if (modalEnd) {
+    return (
+      <ModalScheduleEnd
+        openModalConfirm={openModalEnd}
+        scheduleId={modalEnd}
+        setShowSchedule={() => setShowSchedule(false)}
+        scheduleSelected={scheduleSelected}
+      />
+    )
+  }
+
+  return(
+    <>
+      <ToastContainer/>
+      {steps === 'infos' && !typeSelected.title && (
+        <section className="screen services-screen">
+          {topbar('Serviços', handleBack)}
+          <p className="services-intro">Escolha o serviço desejado</p>
+          <ul className="schedule-list">
+            {scheduleTypes.map((item) => (
+              <li key={item.id} onClick={() => handleTypes(item)} className="schedule-list-item">
+                <div className="schedule-list-item__main">
+                  <span className="schedule-list-item__icon">
+                    <img src={serviceIcons[item.id] || img} alt="" />
+                  </span>
+                  <span>{item.title}</span>
+                </div>
+                <strong>{item.value}</strong>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {steps === 'infos' && !!typeSelected.title && (
+        <section className="screen calendar-screen">
+          {topbar('Escolha o horário', handleBack)}
+          <div className="calendar-service">
+            <strong>{typeSelected.title}</strong>
+            <small>{typeSelected.value}</small>
+          </div>
+          <p className="services-intro">Selecione o dia e o horário disponíveis</p>
+          <button type="button" className="quick-booking" onClick={findQuickSlot} disabled={quickLoading}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <circle cx="12" cy="12" r="8" />
+              <path d="M12 8v4l2.5 2.5" />
+            </svg>
+            <span>
+              <strong>Agendamento rápido</strong>
+              <small>clique para Encontrar o horário mais próximo</small>
+            </span>
+          </button>
+          <div className="quick-booking-loading" hidden={!quickLoading}>
+            <div className="quick-booking-loading__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <circle cx="6" cy="6" r="2.5" />
+                <circle cx="6" cy="18" r="2.5" />
+                <path d="M8.2 7.8L20 18M8.2 16.2L20 6" />
+              </svg>
+            </div>
+            <strong>Aguarde</strong>
+            <p>Procurando o horário disponível mais próximo...</p>
+          </div>
+          <div className="date-carousel" ref={dateCarouselRef}>
+            {bookingDates.map((date) => {
+              const closed = isClosedBookingDate(date)
+              const active = !!selectDate && moment(selectDate).format('YYYY-MM-DD') === moment(date).format('YYYY-MM-DD')
+              return (
+                <button
+                  type="button"
+                  key={date.toISOString()}
+                  className={`date-card ${active ? 'is-active' : ''}`}
+                  disabled={closed}
+                  onClick={() => {
+                    onChangeSelectDate(date)
+                    getHours(date)
+                  }}
+                >
+                  <b>{date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')}</b>
+                  <strong>{date.getDate()}</strong>
+                  <small>{date.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '')}</small>
+                </button>
+              )
+            })}
+          </div>
+          <h3 className="section-title section-title--spaced">Horários disponíveis</h3>
+          <div className="time-legend">
+            <span><i className="time-legend__swatch time-legend__swatch--free" /> Livre</span>
+            <span><i className="time-legend__swatch time-legend__swatch--taken" /> Ocupado</span>
+            <span><i className="time-legend__swatch time-legend__swatch--selected" /> Selecionado</span>
+          </div>
+          <div className="time-slots calendar-times">
+            {selectDate && hoursSelected.map((el) => {
+              const index = hoursSelected.map(hour => hour.value).indexOf(el.value)
+              const selected = el.value === scheduleSelected?.hour
+              const nextBlocked = hoursSelected[index + 1] ? hoursSelected[index + 1].disabled : true
+              const blocked = typeSelected.time === 2
+                ? (el.disabled || (!selected && nextBlocked))
+                : el.disabled
+              return (
+                <button
+                  type="button"
+                  key={el.value}
+                  className={`time-chip ${selected && !el.disabled ? 'is-active' : ''} ${blocked ? 'is-disabled' : ''}`}
+                  onClick={() => {
+                    !el.disabled && !(typeSelected.time === 2 && (hoursSelected[index + 1] ? hoursSelected[index + 1].disabled : true))
+                      ? handleSelectHours(el)
+                      : toast.error('Este horário não está disponivel no momento!', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                      })
+                  }}
+                >
+                  {!isLoading && <span>{el.value.replace(':00', '')}</span>}
+                </button>
+              )
+            })}
+          </div>
+          <footer className="calendar-footer">
+            <button
+              type="button"
+              disabled={handleDisabled('date')}
+              className="btn btn--primary calendar-confirm"
+              onClick={() => {
                 nextStep('user')
                 setScheduleSelected(scheduleSelected)
-              }}>Continuar</button>
-          </div>
-      }
-        </div>
+              }}
+            >Continuar</button>
+          </footer>
+        </section>
       )}
-      {steps === 'review' && (
-        <div className = "review-container"style={{width:'100%'}}>
-          <h1>Revise suas informações:</h1>
-            <div className="review">
-              <span>Serviço: {scheduleSelected.typeCut.title}</span> 
-              <span>Preço: {scheduleSelected.typeCut.price}</span> 
-              <span>Data: {moment(scheduleSelected.date).format('DD/MM/YYYY')}</span>
-              <span>Horário: {scheduleSelected.hour}</span>
-            </div>
-          <h1>Informações do cliente:</h1>
-          {scheduleSelected.user && <div className="review">
-              <span>Nome: {scheduleSelected.user.name}</span> 
-              <span>Telefone: {scheduleSelected.user.phone}</span> 
-          </div>}
 
-          <span className="line-text">
-            Verifique com atenção todas as informações sobre seu agendamento. 
-            Se houver algum erro clique no botão voltar e altere seus dados
-            </span>
-          {scheduleSelected && 
-          <div className="line-button">
-            <button disabled={isLoading} className="save-schedule" onClick={() =>saveSchedule()}>
-             {isLoading && <LoadingSpinner/>} Salvar Agendamento
-              </button>
-          </div>
-          }
-        </div>
-      )}
       {steps === 'user' && (
-        <div className="form-user">
-          <h1>Preencha seus dados</h1>
-          <div className="line-button" style={{maxHeight:'50px',minHeight:'50px'}}>
-            <input 
-              maxLength={50}
-              onChange = {(event:any) => handleUser('name',event.target.value)} 
-              type="text" 
-              className="input-text" 
-              placeholder="Digite seu nome"
+        <section className="screen auth-screen">
+          {topbar('Seus dados', handleBack)}
+          <div className="auth-heading">
+            <h3>Preencha seus dados</h3>
+            <p>Usaremos o nome e o WhatsApp para identificar o agendamento.</p>
+          </div>
+          <form className="auth-form" onSubmit={(event) => event.preventDefault()}>
+            <label>
+              Nome completo
+              <input
+                maxLength={50}
+                onChange={(event: any) => handleUser('name', event.target.value)}
+                type="text"
+                placeholder="Digite seu nome"
               />
-          </div>
-          <div className="line-button" style={{maxHeight:'50px',minHeight:'50px'}}>
-          
-              <InputMask mask="(99)99999-9999" maskChar={null} className = "input-text"
-              placeholder = "Digite seu whatsapp"
-              onChange={onChange} beforeMaskedValueChange={beforeMaskedValueChange} />
-          </div>
-          
-          {scheduleSelected && 
-          <div className="line-button">
-            
-            <button disabled={handleDisabled('user')} className="save-schedule" onClick={() =>{
-              if(steps === 'user')
-                post(`https://hook.us1.make.com/wkwqejgw51h3j4u3d3ec8cm7yrybbacs`,{
-                     phone:scheduleSelected.user.phone
-                   }).subscribe((response) => {
-                    if(response){
+            </label>
+            <label>
+              Telefone
+              <InputMask
+                mask="(99)99999-9999"
+                maskChar={null}
+                placeholder="Digite seu whatsapp"
+                onChange={onChange}
+                beforeMaskedValueChange={beforeMaskedValueChange}
+              />
+            </label>
+            <button
+              type="button"
+              disabled={handleDisabled('user')}
+              className="btn btn--primary btn--block"
+              onClick={() => {
+                if (steps === 'user')
+                  post(`https://hook.us1.make.com/wkwqejgw51h3j4u3d3ec8cm7yrybbacs`, {
+                    phone: scheduleSelected.user.phone
+                  }).subscribe((response) => {
+                    if (response) {
                       nextStep('review')
                     } else {
                       toast.error('Digite um telefone válido', {
@@ -392,30 +527,44 @@ const Schedule:React.FunctionComponent<IProps> = ({
                         draggable: true,
                         progress: undefined,
                         theme: "light",
-                        })
+                      })
                     }
-
-                   },err => {
+                  }, () => {
                     nextStep('review')
-                   })
-                    
-                    
-            }}>Continuar</button>
-
-          </div>
-          }
-          
-        </div>
+                  })
+              }}
+            >Continuar</button>
+          </form>
+        </section>
       )}
 
-   {!!modalEnd && <ModalScheduleEnd
-    openModalConfirm={openModalEnd}
-    scheduleId={modalEnd}
-    setShowSchedule={() => setShowSchedule(false)}
-
-    />}
-        
-    </div>
+      {steps === 'review' && (
+        <section className="screen summary-screen">
+          {topbar('Resumo', handleBack)}
+          <div className="summary-heading">
+            <span>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-3.5-3.5 1.4-1.4 2.1 2.1 4.5-4.5 1.4 1.4-5.9 5.9z" /></svg>
+            </span>
+            <h3>Confira seu agendamento</h3>
+            <p>Verifique com atenção. Se houver algum erro, volte e altere os dados.</p>
+          </div>
+          <div className="summary-card">
+            <div><small>Serviço</small><strong>{scheduleSelected.typeCut?.title}</strong></div>
+            <div><small>Preço</small><strong>{scheduleSelected.typeCut?.price}</strong></div>
+            <div><small>Data</small><strong>{scheduleSelected.date ? moment(scheduleSelected.date).format('DD/MM/YYYY') : ''}</strong></div>
+            <div><small>Horário</small><strong>{scheduleSelected.hour}</strong></div>
+            <div><small>Nome</small><strong>{scheduleSelected.user?.name}</strong></div>
+            <div><small>Telefone</small><strong>{scheduleSelected.user?.phone}</strong></div>
+          </div>
+          <footer className="summary-footer">
+            <button type="button" disabled={isLoading} className="btn btn--primary btn--block" onClick={() => saveSchedule()}>
+              {isLoading && <LoadingSpinner />} Salvar agendamento
+            </button>
+            <button type="button" className="btn btn--ghost btn--block" onClick={() => setStep('infos')}>Alterar data ou horário</button>
+          </footer>
+        </section>
+      )}
+    </>
   )
 }
 

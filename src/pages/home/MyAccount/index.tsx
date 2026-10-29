@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import Schedules from './schedules';
 import Infos from './infos';
 import clock from '../../../assets/clock.png'
+import adminAvatar from '../../../assets/visual/admin-avatar.png'
 import ModalHoliday from './components/modal-holiday';
 import ModalConfirm from './components/modal-confirm';
 
@@ -30,8 +31,6 @@ const MyAccount: React.FunctionComponent<IProps> = ({
     setPhoneSelected,
     phoneSelected,
     getSchedulesFilter,
-    getInfos,
-    infos,
     reset } = store()
 
   const [filter, setFilter] = useState({
@@ -61,21 +60,37 @@ const MyAccount: React.FunctionComponent<IProps> = ({
 
   const texto = 'Olá, esqueci meu id de agendamento pode me ajudar?'
   
+  const backIcon = (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  )
+
   return (
-    <div className={showSchedule ? 'card-schedule' : 'card-schedule-flex'}>
+    <section className="screen profile-screen">
+      <header className="topbar">
+        <button type="button" className="icon-btn" aria-label="Voltar para home" onClick={() => changeMenu('home')}>{backIcon}</button>
+        <h2 className="page-title">Meu perfil</h2>
+        <button type="button" className="icon-btn" aria-label="Agendar horário" onClick={() => changeMenu('home')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7v5l3 2" /></svg>
+        </button>
+      </header>
       {showSchedule && (
         <div className='card-list'>
-          <div className='title-line'>
-            <h1>Meus Agendamentos {isLoading && <span><LoadingSpinner /></span>}
-            {phoneSelected === '12345678910' && <img src={clock} width="20px" height={20}  style={{borderRadius:'50%'}} alt="" onClick={showHolidays} />}
-            </h1>
-            <span
-              style={{ fontWeight: 600, cursor: 'pointer' }}
-              onClick={reset}
-            >Sair</span>
+          <div className="profile-user">
+            <span className="profile-user__avatar">
+              {phoneSelected === '12345678910'
+                ? <img src={adminAvatar} alt="Logo Caverna" />
+                : (phoneSelected || 'C').slice(0, 1).toUpperCase()}
+            </span>
+            <div>
+              <h3>Meus agendamentos {isLoading && <LoadingSpinner />}</h3>
+              <p>{phoneSelected}</p>
+            </div>
+            {phoneSelected === '12345678910' && <img src={clock} width="20px" height={20} style={{ borderRadius: '50%', cursor: 'pointer' }} alt="" onClick={showHolidays} />}
           </div>
           <div>
-            {phoneSelected === '12345678910' && <div className='line-filter' style={{ maxHeight: '5vh', minHeight: '5vh' }}>
+            {phoneSelected === '12345678910' && <div className="auth-form">
               <input
                 onChange={(event: any) => setFilter({ ...filter, search: event.target.value })}
                 type="text"
@@ -95,13 +110,15 @@ const MyAccount: React.FunctionComponent<IProps> = ({
                 value={filter.fim}
                 placeholder="Digite seu telefone" />
               <button
+                type="button"
+                className="btn btn--primary btn--block"
                 onClick={() => {
                   getSchedulesFilter(filter, phoneSelected)
-                  getInfos(filter)
                 }}
               >Filtrar</button>
               <button
-                
+                type="button"
+                className="btn btn--ghost btn--block"
                 onClick={() => {
                   showData ? openData(false) : openData(true)
                 }}
@@ -112,6 +129,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
 
           {!showData &&(
             <div>
+              <h3 className="section-title section-title--spaced">Meus agendamentos</h3>
               <Schedules
                 schedules={schedules}
                 openModalConfirm={openModalConfirm}
@@ -119,39 +137,35 @@ const MyAccount: React.FunctionComponent<IProps> = ({
               <ReactTooltip />
             </div>
           )}
+          <button type="button" className="profile-logout" onClick={reset}>Sair</button>
         </div>)}
 
       {!showSchedule && (
-        <div className="form-user-acc">
-          <h1 style={{ fontSize: 20 }}>Digite seu ID de agendamento</h1>
+        <form className="auth-form" onSubmit={(event) => event.preventDefault()}>
+          <div className="auth-heading">
+            <h3>Digite seu ID de agendamento</h3>
+            <p>Use o código recebido na confirmação para consultar ou cancelar.</p>
+          </div>
           <ToastContainer />
-
-          <div className="line-button-acc" style={{ maxHeight: '5vh', minHeight: '5vh' }}>
-
+          <label>
+            ID de agendamento
             <input
-              className="input-text-acc"
               placeholder="Digite seu ID de agendamento"
-              onChange={handleUser} />
-          </div>
-
-          <div className="line-button-acc">
-
-            <button className="save-schedule-acc save-schedule" onClick={() => {
-              getSchedulesFilter(filter,phoneSelected)
-              if (phoneSelected === '12345678910') getInfos(filter)
-            }}>Buscar agendamentos</button>
-
-          </div>
-          <span className='forget-id' onClick={ () =>
-              window.open(`https://api.whatsapp.com/send?phone=5515997406083&text=${texto}`)
-          }>Esqueceu seu ID? Clique aqui.</span>
-
-        </div>
+              onChange={handleUser}
+            />
+          </label>
+          <button type="button" className="btn btn--primary btn--block" onClick={() => {
+            getSchedulesFilter(filter, phoneSelected)
+          }}>Buscar agendamentos</button>
+          <button type="button" className="auth-create" onClick={() =>
+            window.open(`https://api.whatsapp.com/send?phone=5515997406083&text=${texto}`)
+          }>Esqueceu seu ID? Clique aqui.</button>
+        </form>
       )}
 
       {showData &&  phoneSelected === '12345678910' && showSchedule &&(
         <div>
-          <Infos infos={infos} filters={filter} />
+          <Infos schedules={schedules} filters={filter} isLoading={isLoading} />
         </div>
       )}
 
@@ -168,7 +182,7 @@ const MyAccount: React.FunctionComponent<IProps> = ({
       {modalHolidays &&
         <ModalHoliday setModalHolidays={setModalHolidays} />
       }
-    </div>
+    </section>
   )
 }
 

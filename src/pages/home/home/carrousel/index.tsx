@@ -1,38 +1,53 @@
-import React from 'react'
-import { Carousel } from 'react-responsive-carousel'
+import React, { useState } from 'react'
 import './index.scss'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import corte1 from '../../../../assets/carrousel/corte-1.jpeg'
-import corte2 from '../../../../assets/carrousel/corte-2.jpeg'
-import corte3 from '../../../../assets/carrousel/corte-3.jpeg'
-import corte4 from '../../../../assets/carrousel/corte-4.jpeg'
-import sinuca from '../../../../assets/carrousel/sinuca.jpeg'
-// import video1 from '../../../../assets/carrousel/video-1.mp4'
-// import video2 from '../../../../assets/carrousel/video-2.mp4'
-// import video3 from '../../../../assets/carrousel/video-3.mp4'
-// import video4 from '../../../../assets/carrousel/video-4.mp4'
-// import video5 from '../../../../assets/carrousel/video-5.mp4'
+import work1 from '../../../../assets/visual/work-1.png'
+import work2 from '../../../../assets/visual/work-2.png'
+import work3 from '../../../../assets/visual/work-3.png'
+import work4 from '../../../../assets/visual/work-4.png'
+import work5 from '../../../../assets/visual/work-5.png'
+
+const works = [work1, work2, work3, work4, work5]
 
 const CarrouselComponent = () => {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const loop = [...works, ...works]
+
+  const closeLightbox = () => setLightboxIndex(null)
+  const showPrevious = () => setLightboxIndex((current) => (current === null ? 0 : (current + works.length - 1) % works.length))
+  const showNext = () => setLightboxIndex((current) => (current === null ? 0 : (current + 1) % works.length))
+
   return (
-    <div  className="carrousel-container">
-        <Carousel showArrows={true} showThumbs={false} showStatus={false} infiniteLoop={true} interval={10000} autoPlay={true}>
-            <img src={corte3} alt=""/>
-            <img src={corte4} alt=""/>
-            <img src={sinuca} alt=""/>
-            <img src={corte1} alt="" />
-            <img src={corte2} alt="" />
-            {/* <video src={video1} autoPlay={true} controls={true} loop={true}></video>
-            <video src={video2} autoPlay={true} controls={true} loop={true}></video>
-            <video src={video3} autoPlay={true} controls={true} loop={true}></video>
-            <video src={video4} autoPlay={true} controls={true} loop={true}></video>
-            <video src={video5} autoPlay={true} controls={true} loop={true}></video> */}
+    <section className="portfolio-section">
+      <div className="section-heading-row">
+        <h3 className="section-title">Trabalhos realizados</h3>
+        <span>Galeria</span>
+      </div>
+      <div className="portfolio-carousel">
+        <div className="portfolio-grid">
+          {loop.map((image, index) => (
+            <img
+              key={`${image}-${index}`}
+              src={image}
+              alt={index < works.length ? `Trabalho realizado ${index + 1}` : ''}
+              aria-hidden={index >= works.length}
+              onClick={() => {
+                if (index < works.length) setLightboxIndex(index)
+              }}
+            />
+          ))}
+        </div>
+      </div>
 
-        </Carousel>
-    </div>
-  
-    )
+      {lightboxIndex !== null && (
+        <div className="portfolio-lightbox">
+          <button className="portfolio-lightbox__close" type="button" onClick={closeLightbox}>Sair</button>
+          <button className="portfolio-lightbox__nav portfolio-lightbox__nav--prev" type="button" aria-label="Foto anterior" onClick={showPrevious}>‹</button>
+          <img className="portfolio-lightbox__image" src={works[lightboxIndex]} alt="Trabalho realizado ampliado" />
+          <button className="portfolio-lightbox__nav portfolio-lightbox__nav--next" type="button" aria-label="Próxima foto" onClick={showNext}>›</button>
+        </div>
+      )}
+    </section>
+  )
 }
-
 
 export default CarrouselComponent
